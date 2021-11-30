@@ -19,6 +19,9 @@ namespace Webshop.Models
 
         public int CustomerId { get; set; }
 
+        public Product Product { get; set; }
+
+        public int ProductId { get; set; } 
 
         public IEnumerable<Product> Products { get; set; } 
 
