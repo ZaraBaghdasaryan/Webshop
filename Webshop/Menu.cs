@@ -10,6 +10,7 @@ namespace Webshop
         public void DisplaMainMenu()
         {
             ProductMethods product = new ProductMethods();
+            OrderMethods order = new OrderMethods();
 
             Console.WriteLine("Here are your options:");
             Console.WriteLine("1. Browse products");
@@ -22,6 +23,9 @@ namespace Webshop
             {
                 case "1":
                     product.GetAllProducts(false);
+                    Console.WriteLine("Which product do you want to buy?");
+                    int userInput = Convert.ToInt32(Console.ReadLine());
+                    order.AddProductToOrder(userInput);
                     break;
             }
         }

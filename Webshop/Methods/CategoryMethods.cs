@@ -11,7 +11,7 @@ namespace Webshop.Methods
 
         public IEnumerable<Category> GetAllCategories()
         {
-            webshopContextFortesting _context = new webshopContextFortesting();
+            WebshopDBContext _context = new WebshopDBContext();
 
             var categoriesFromDB = _context.Categories.ToList();
             for (int i = 0; i < categoriesFromDB.Count; i++)

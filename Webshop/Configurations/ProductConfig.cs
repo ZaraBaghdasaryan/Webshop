@@ -16,6 +16,10 @@ namespace Webshop.Configurations
             builder
                 .HasOne(c => c.Category)
                 .WithMany(p => p.Products);
+
+            //builder
+            //    .HasMany(o => o.Orders)
+            //    .WithMany(p => p.Products);
         }
     }
 }

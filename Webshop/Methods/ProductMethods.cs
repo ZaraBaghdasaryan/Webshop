@@ -12,7 +12,7 @@ namespace Webshop.Methods
         public IEnumerable<Product> GetAllProducts( bool testing)
         {
             Menu menu = new Menu();
-            webshopContextFortesting _context = new webshopContextFortesting();
+            WebshopDBContext _context = new WebshopDBContext();
             var productsFromDB = _context.Products.ToList();
             int userInput;
 
@@ -33,15 +33,12 @@ namespace Webshop.Methods
                     Console.WriteLine($"\n Id: {products.ProductId} \n Name: {products.ProductName} \n Price: {products.Price}.- \n Number of items available for puchase: {products.Availability}pcs");
 
                 }
-                else
-                {
-                    Console.WriteLine("We did not find any categories with that number, please try again");
-                    
-                }
 
             }
 
             return (productsFromDB);
         }
+
+
     }
 }

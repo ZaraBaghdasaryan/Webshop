@@ -16,6 +16,7 @@ namespace Webshop.Models
         public int Availability { get; set; }
         public Category Category { get; set; }
         public int CategoryId { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
     }
 }

@@ -4,11 +4,47 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Webshop;
+using System.Collections.Generic;
 
 namespace Webshop.Methods 
 {
-    public class OrderMethods 
+    public class OrderMethods
     {
+        public IEnumerable<Order> AddProductToOrder(int userInput)
+        {
+            WebshopDBContext webshopDBContext = new WebshopDBContext();
+
+            var order = new Order();
+            var product = new Product();
+            var customer = new Customer();
+
+            var products = webshopDBContext.Products.Where(b => b.ProductId == userInput).ToList();
+            var customers = webshopDBContext.Customers.Find(customer.IsLoggedin == true);
+
+            int id = 1;
+            id++;
+
+            order.Id = id;
+
+            order.Customer = customers;
+            order.Customer.FirstName = customers.FirstName;
+            order.Products = products;
+            
+            
+            webshopDBContext.Add(order);
+            webshopDBContext.SaveChanges();
+            Console.WriteLine("Succesfully created you order!");
+            Console.WriteLine($"Id: {order.Id} \n Customer: {order.Customer.FirstName}");
+            yield return order;
+        }
+
+
+        //public decimal Checkout (Order order)
+        //{
+
+
+        //    return order;
+        //}
         public void CreateOrder()
 
         {
@@ -53,7 +89,7 @@ namespace Webshop.Methods
 
 
             order.CustomerId = CustomerId;
-            order.Price = Price;
+            order.TotalPrice = Price;
             order.ProductId = ProductId;
 
 
@@ -82,14 +118,14 @@ namespace Webshop.Methods
             var orderId = Convert.ToInt32(Console.ReadLine());
             var order= webshopDBContext.Orders.Find(orderId);
 
-            Console.WriteLine("Please, enter the new Price for the order. Current Price is:" + " " + order.Price);
+            Console.WriteLine("Please, enter the new Price for the order. Current Price is:" + " " + order.TotalPrice);
             int Price2 = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Please, enter the new CustomerId for the order. Current CustomerId is:" + " " + order.CustomerId);
             int CustomerId2 = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Please, enter the new ProductId for the order. Current ProductId is:" + " " + order.CustomerId);
             int ProductId2 = Convert.ToInt32(Console.ReadLine());
 
-            order.Price = Price2;
+            order.TotalPrice = Price2;
             order.CustomerId = CustomerId2;
             order.ProductId = ProductId2;
            
@@ -127,7 +163,7 @@ namespace Webshop.Methods
             if (order != null)
             {
                 
-                Console.WriteLine("Price is:" + " " + order.Price);
+                Console.WriteLine("Price is:" + " " + order.TotalPrice);
                 Console.WriteLine("CustomerId is:" + " " + order.CustomerId);
                 Console.WriteLine("ProductId is:" + " " + order.ProductId);
 

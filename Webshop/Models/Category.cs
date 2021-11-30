@@ -15,7 +15,5 @@ namespace Webshop.Models
         public int CategoryId { get; set; } 
         public string CategoryName { get; set; }
         public IEnumerable<Product> Products  { get; set; }
-
-        public IEnumerable<Order> Orders { get; set; }
     }
 }
