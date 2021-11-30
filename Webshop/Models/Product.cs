@@ -10,7 +10,7 @@ namespace Webshop.Models
     public class Product
     {
         [Key]
-        public int Id { get; set; }
+        public int ProductId { get; set; } 
 
         [MaxLength(50), Required]
         public string Name { get; set; } 
