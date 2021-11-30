@@ -18,24 +18,22 @@ namespace Webshop.Methods
             var product = new Product();
             var customer = new Customer();
 
+
             var products = webshopDBContext.Products.Where(b => b.ProductId == userInput).ToList();
             var customers = webshopDBContext.Customers.Find(customer.IsLoggedin == true);
 
-            int id = 1;
-            id++;
-
-            order.Id = id;
+            int id = +1;
 
             order.Customer = customers;
-            order.Customer.FirstName = customers.FirstName;
             order.Products = products;
-            
-            
+            order.ProductId = product.ProductId;
+            order.Id = id;
+            Console.WriteLine("Succesfully created you order!");
+            Console.WriteLine($"Id: {id}");
             webshopDBContext.Add(order);
             webshopDBContext.SaveChanges();
-            Console.WriteLine("Succesfully created you order!");
-            Console.WriteLine($"Id: {order.Id} \n Customer: {order.Customer.FirstName}");
-            yield return order;
+
+            return AddProductToOrder(userInput);
         }
 
 

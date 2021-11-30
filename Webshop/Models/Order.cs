@@ -23,7 +23,7 @@ namespace Webshop.Models
 
         public int ProductId { get; set; } 
 
-        public ICollection<Product> Products { get; set; } 
+        public IEnumerable<Product> Products { get; set; } 
 
 
     }

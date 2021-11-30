@@ -10,7 +10,7 @@ using Webshop;
 namespace Webshop.Migrations
 {
     [DbContext(typeof(WebshopDBContext))]
-    [Migration("20211130215918_CreateDB")]
+    [Migration("20211130225049_CreateDB")]
     partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,7 +131,7 @@ namespace Webshop.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int?>("OrdersId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -147,7 +147,7 @@ namespace Webshop.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrdersId");
 
                     b.HasIndex("Shopping_CartId");
 
@@ -215,9 +215,9 @@ namespace Webshop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Webshop.Models.Order", "Order")
+                    b.HasOne("Webshop.Models.Order", "Orders")
                         .WithMany("Products")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrdersId");
 
                     b.HasOne("Webshop.Models.Shopping_Cart", null)
                         .WithMany("Products")

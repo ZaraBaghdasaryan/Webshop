@@ -46,7 +46,7 @@ namespace Webshop.Migrations
                     Price = table.Column<int>(nullable: false),
                     Availability = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
-                    OrderId = table.Column<int>(nullable: true),
+                    OrdersId = table.Column<int>(nullable: true),
                     Shopping_CartId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -124,12 +124,12 @@ namespace Webshop.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "Availability", "CategoryId", "OrderId", "Price", "ProductName", "Shopping_CartId" },
+                columns: new[] { "ProductId", "Availability", "CategoryId", "OrdersId", "Price", "ProductName", "Shopping_CartId" },
                 values: new object[] { 1, 10, 1, null, 699, "Space Suit 1", null });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "Availability", "CategoryId", "OrderId", "Price", "ProductName", "Shopping_CartId" },
+                columns: new[] { "ProductId", "Availability", "CategoryId", "OrdersId", "Price", "ProductName", "Shopping_CartId" },
                 values: new object[] { 2, 10, 2, null, 699, "Space Shuttle", null });
 
             migrationBuilder.CreateIndex(
@@ -148,9 +148,9 @@ namespace Webshop.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_OrderId",
+                name: "IX_Products_OrdersId",
                 table: "Products",
-                column: "OrderId");
+                column: "OrdersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_Shopping_CartId",
@@ -163,9 +163,9 @@ namespace Webshop.Migrations
                 column: "ProductId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Products_Orders_OrderId",
+                name: "FK_Products_Orders_OrdersId",
                 table: "Products",
-                column: "OrderId",
+                column: "OrdersId",
                 principalTable: "Orders",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);

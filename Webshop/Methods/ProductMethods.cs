@@ -38,7 +38,5 @@ namespace Webshop.Methods
 
             return (productsFromDB);
         }
-
-
     }
 }
