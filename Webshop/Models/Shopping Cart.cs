@@ -7,17 +7,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Webshop.Models
 {
-    public class Product
+    public class Shopping_Cart
     {
         [Key]
+        public int Id { get; set; }
+
+        [Required]
+        public decimal Price { get; set; }
+
+        public Product Product { get; set; }
+
         public int ProductId { get; set; } 
-        public string ProductName { get; set; }
-        public int Price { get; set; }
-        public int Availability { get; set; }
-        public Category Category { get; set; }
-        public int CategoryId { get; set; }
+
+        public IEnumerable<Product> Products { get; set; }
+
 
     }
 }
-
-
