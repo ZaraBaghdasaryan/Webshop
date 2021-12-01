@@ -9,6 +9,14 @@ namespace Webshop.Models
 {
     public class Product
     {
+        public Product()
+        {
+        }
+
+        public Product(bool v)
+        {
+        }
+
         [Key]
         public int ProductId { get; set; } 
         public string ProductName { get; set; }
@@ -17,6 +25,11 @@ namespace Webshop.Models
         public Category Category { get; set; }
         public int CategoryId { get; set; }
         public Order Orders { get; set; }
+
+        public string PrintProducts()
+        {
+            return "Id: " + ProductId + "\n Name: " + ProductName + "\n Price: " + Price;
+        }
 
     }
 }
