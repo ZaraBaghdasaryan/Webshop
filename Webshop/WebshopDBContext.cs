@@ -74,7 +74,7 @@ namespace Webshop
                     FirstName = "Anna",
                     LastName = "Johnson",
                     Address = "Vägen 11, 447 74 Vägen",
-                    IsLoggedin = true,
+                    IsLoggedin = false,
                     Email = "annabanan@gmail.com",
                     Password = "1234"
                 }
