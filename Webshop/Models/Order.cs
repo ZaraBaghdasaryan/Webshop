@@ -13,7 +13,7 @@ namespace Webshop.Models
         public int Id { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public Customer Customer { get; set; }
 
@@ -23,7 +23,7 @@ namespace Webshop.Models
 
         public int ProductId { get; set; } 
 
-        public IEnumerable<Product> Products { get; set; } 
+        public ICollection<Product> Products { get; set; } 
 
 
     }

@@ -11,21 +11,12 @@ namespace Webshop.Models
     {
         [Key]
         public int ProductId { get; set; } 
-
-        [MaxLength(50), Required]
-        public string Name { get; set; } 
-
-        [MaxLength(18), Required]
+        public string ProductName { get; set; }
         public int Price { get; set; }
-
-        [MaxLength(50), Required]
-        public string Availability { get; set; }
-
-        public Category Category { get; set; } //Association 
-
-        public int CategoryId { get; set; } //Foreign Key   
-
-        public IEnumerable<Order> Orders { get; set; } 
+        public int Availability { get; set; }
+        public Category Category { get; set; }
+        public int CategoryId { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
     }
 }

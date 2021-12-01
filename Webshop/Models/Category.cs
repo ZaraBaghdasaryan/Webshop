@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,7 @@ namespace Webshop.Models
     {
         [Key]
         public int CategoryId { get; set; } 
-
-        [MaxLength(150), Required]
-        public string Name { get; set; }
-
-        public IEnumerable<Product> Products { get; set; } //One category having many products
+        public string CategoryName { get; set; }
+        public IEnumerable<Product> Products  { get; set; }
     }
 }

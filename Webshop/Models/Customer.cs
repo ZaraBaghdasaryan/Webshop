@@ -20,6 +20,7 @@ namespace Webshop.Models
 
         [MaxLength(150), Required]
         public string Email { get; set; }
+        public bool IsLoggedin { get; set; }
 
         [MaxLength(150)]
         public string Address { get; set; }
