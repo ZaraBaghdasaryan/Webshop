@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BicycleRental.Methods;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Methods;
@@ -10,7 +11,8 @@ namespace Webshop
     {
         public void DisplaMainMenu()
         {
-            
+            CustomerMethods customerMethods = new CustomerMethods();
+            Console.Clear();
             Console.WriteLine("Here are your options:");
             Console.WriteLine("1. Browse products");
             Console.WriteLine("2. Go to Shopping Cart");
@@ -23,6 +25,12 @@ namespace Webshop
                 case "1":
                     DisplayProductsMenu();
                     break;
+                case "2":
+                    break;
+                case "3":
+                    customerMethods.SignUp();
+                    break;
+
             }
         }
 

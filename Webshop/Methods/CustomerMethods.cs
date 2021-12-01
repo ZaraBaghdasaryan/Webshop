@@ -11,7 +11,7 @@ namespace BicycleRental.Methods
 
         {
             WebshopDBContext webshopDBContext = new WebshopDBContext();
-            
+            Menu menu = new Menu();
 
             Console.WriteLine("Please, enter your first name.");
             string FirstName = Console.ReadLine();
@@ -19,6 +19,8 @@ namespace BicycleRental.Methods
             string LastName = Console.ReadLine();
             Console.WriteLine("Please, enter your Email.");
             string Email = Console.ReadLine();
+            Console.WriteLine("Please. enter your password");
+            string Password = Console.ReadLine();
             Console.WriteLine("Please, enter your Address.");
             string Address = Console.ReadLine();
 
@@ -27,6 +29,7 @@ namespace BicycleRental.Methods
                 FirstName = FirstName,
                 LastName = LastName,
                 Email = Email,
+                Password = Password,
                 Address = Address,
                 IsLoggedin = false
             };
@@ -35,6 +38,8 @@ namespace BicycleRental.Methods
 
             Console.WriteLine("Well done! A new customer with their properties has been added to the database! Press enter if you want to return to the main menu.");
             Console.ReadKey();
+            menu.DisplaMainMenu();
+
         }
 
         public void UpdateCustomer()
