@@ -10,7 +10,7 @@ using Webshop;
 namespace Webshop.Migrations
 {
     [DbContext(typeof(WebshopDBContext))]
-    [Migration("20211130225049_CreateDB")]
+    [Migration("20211201091524_CreateDB")]
     partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

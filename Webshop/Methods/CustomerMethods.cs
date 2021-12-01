@@ -7,20 +7,20 @@ namespace BicycleRental.Methods
 {
     public class CustomerMethods
     {
-        public void CreateCustomer()
+        public void SignUp()
 
         {
             WebshopDBContext webshopDBContext = new WebshopDBContext();
 
             Customer customer = new Customer();
 
-            Console.WriteLine("Please, enter the First Name for a customer.");
+            Console.WriteLine("Please, enter your first name.");
             string FirstName = Console.ReadLine();
-            Console.WriteLine("Please, enter the Last Name for a customer.");
+            Console.WriteLine("Please, enter you last name.");
             string LastName = Console.ReadLine();
-            Console.WriteLine("Please, enter the Email for a customer.");
+            Console.WriteLine("Please, enter your Email.");
             string Email = Console.ReadLine();
-            Console.WriteLine("Please, enter the Address for a customer.");
+            Console.WriteLine("Please, enter your Address.");
             string Address = Console.ReadLine();
 
 

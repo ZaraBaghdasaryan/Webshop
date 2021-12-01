@@ -5,12 +5,51 @@ using System.Linq;
 using System.Threading.Tasks;
 using Webshop;
 using System.Collections.Generic;
+using BicycleRental.Methods;
 
 namespace Webshop.Methods 
 {
     public class OrderMethods
     {
-        public IEnumerable<Order> AddProductToOrder(int userInput)
+
+        public void CreateNewOrder()
+        {
+            using(WebshopDBContext webshopDBContext = new WebshopDBContext())
+            {
+                webshopDBContext.Products.Load();
+                webshopDBContext.Customers.Load();
+                webshopDBContext.Orders.Load();
+
+                Menu menu = new Menu();
+
+                var customer = new Customer();
+
+                Console.WriteLine("Which product do you want?");
+                int choice = Convert.ToInt32(Console.ReadLine());
+
+                webshopDBContext.Products.Find(choice).Availability -= choice;
+
+                var order = new Order()
+                {
+                    ProductId = choice,
+                    Customer = webshopDBContext.Customers
+                    .Where(c => c.IsLoggedin == true).FirstOrDefault(),
+                    CustomerId = webshopDBContext.Customers
+                    .Where(c => c.IsLoggedin == true).FirstOrDefault().Id,
+                    Product = webshopDBContext.Products.Find(choice),
+                    TotalPrice = webshopDBContext.Products.Find(choice).Price
+                };
+                webshopDBContext.Orders.Add(order);
+                webshopDBContext.SaveChanges();
+                Console.WriteLine("Order was created!");
+                Console.WriteLine($"OrderId: {order.Id} \n Total Price: {order.TotalPrice}");
+                menu.GoBackToMain();
+
+            }
+        }
+
+        public void CreateOrder()
+
         {
             WebshopDBContext webshopDBContext = new WebshopDBContext();
 
@@ -18,44 +57,12 @@ namespace Webshop.Methods
             var product = new Product();
             var customer = new Customer();
 
-
-            var products = webshopDBContext.Products.Where(b => b.ProductId == userInput).ToList();
-            var customers = webshopDBContext.Customers.Find(customer.IsLoggedin == true);
-
-            int id = +1;
-
-            order.Customer = customers;
-            order.Products = products;
-            order.ProductId = product.ProductId;
-            order.Id = id;
-            Console.WriteLine("Succesfully created you order!");
-            Console.WriteLine($"Id: {id}");
-            webshopDBContext.Add(order);
-            webshopDBContext.SaveChanges();
-
-            return AddProductToOrder(userInput);
-        }
-
-
-        //public decimal Checkout (Order order)
-        //{
-
-
-        //    return order;
-        //}
-        public void CreateOrder()
-
-        {
-            WebshopDBContext webshopDBContext = new WebshopDBContext();
-
-            var order = new Order();
-
             Console.WriteLine("Please, enter the Price of the order.");
-            int Price = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Please, enter the CustomerId of the order.");
-            int CustomerId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Please, enter the ProductId of the order.");
-            int ProductId = Convert.ToInt32(Console.ReadLine());
+            int Price = product.Price;
+            Console.WriteLine($"Price: {Price}.");
+            int CustomerId = customer.Id;
+            Console.WriteLine($"CustomerId: {CustomerId}");
+            int ProductId = product.ProductId;
 
 
             bool x = true;
@@ -86,9 +93,7 @@ namespace Webshop.Methods
             }
 
 
-            order.CustomerId = CustomerId;
             order.TotalPrice = Price;
-            order.ProductId = ProductId;
 
 
             Console.WriteLine("Well done! A new Order with its properties has been added to the database! Press enter if you want to return to the main menu.");

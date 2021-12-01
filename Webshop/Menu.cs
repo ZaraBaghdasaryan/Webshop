@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Methods;
+using Webshop.Models;
 
 namespace Webshop
 {
@@ -9,9 +10,7 @@ namespace Webshop
     {
         public void DisplaMainMenu()
         {
-            ProductMethods product = new ProductMethods();
-            OrderMethods order = new OrderMethods();
-
+            
             Console.WriteLine("Here are your options:");
             Console.WriteLine("1. Browse products");
             Console.WriteLine("2. Go to Shopping Cart");
@@ -22,17 +21,39 @@ namespace Webshop
             switch(choice)
             {
                 case "1":
-                    product.GetAllProducts(false);
-                    Console.WriteLine("Which product do you want to buy?");
-                    int userInput = Convert.ToInt32(Console.ReadLine());
-                    order.AddProductToOrder(userInput);
+                    DisplayProductsMenu();
                     break;
             }
         }
 
         public void DisplayProductsMenu()
         {
+            ProductMethods product = new ProductMethods();
+            OrderMethods order = new OrderMethods();
+            product.GetAllProducts(false);
+            order.CreateNewOrder();
+        }
 
+        public void GoBackToMain()
+        {
+            ProductMethods product = new ProductMethods();
+
+            Console.WriteLine("What do you want to do?");
+            Console.WriteLine("1. Go back");
+            Console.WriteLine("2. Exit Program");
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            if(choice == 1)
+            {
+                Console.Clear();
+                DisplaMainMenu();
+            }
+            else if (choice == 2)
+            {
+                product.ResetAvailabilityWhenClosing();
+                Environment.Exit(0);
+            }
         }
     }
 }

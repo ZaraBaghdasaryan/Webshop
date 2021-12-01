@@ -18,6 +18,8 @@ namespace Webshop.Models
         [MaxLength(50), Required]
         public string LastName { get; set; }
 
+        //public string FullName { get; set; }
+
         [MaxLength(150), Required]
         public string Email { get; set; }
 
@@ -26,7 +28,7 @@ namespace Webshop.Models
         [MaxLength(150)]
         public string Address { get; set; }
 
-        public IEnumerable<Order> Orders { get; set; } 
+        public List<Order> Orders { get; set; } 
 
     }
 }
