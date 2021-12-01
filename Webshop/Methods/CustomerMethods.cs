@@ -2,49 +2,81 @@
 using Webshop.Models;
 using Microsoft.EntityFrameworkCore;
 using Webshop;
+using System.Linq;
 
 namespace BicycleRental.Methods
 {
     public class CustomerMethods
     {
-        public void CreateCustomer()
+        public void SignUp()
 
         {
             WebshopDBContext webshopDBContext = new WebshopDBContext();
+            Menu menu = new Menu();
 
-            Customer customer = new Customer();
-
-            Console.WriteLine("Please, enter the First Name for a customer.");
+            Console.WriteLine("Please, enter your first name.");
             string FirstName = Console.ReadLine();
-            Console.WriteLine("Please, enter the Last Name for a customer.");
+            Console.WriteLine("Please, enter you last name.");
             string LastName = Console.ReadLine();
-            Console.WriteLine("Please, enter the Email for a customer.");
+            Console.WriteLine("Please, enter your Email.");
             string Email = Console.ReadLine();
-            Console.WriteLine("Please, enter the Address for a customer.");
+            Console.WriteLine("Please. enter your password");
+            string Password = Console.ReadLine();
+            Console.WriteLine("Please, enter your Address.");
             string Address = Console.ReadLine();
 
-
-            customer.FirstName = FirstName;
-            customer.LastName = LastName;
-            customer.Email = Email;
-            customer.Address = Address;
-
+            Customer customer = new Customer()
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                Email = Email,
+                Password = Password,
+                Address = Address,
+                IsLoggedin = false
+            };
+            webshopDBContext.Customers.Add(customer);
+            webshopDBContext.SaveChanges();
 
             Console.WriteLine("Well done! A new customer with their properties has been added to the database! Press enter if you want to return to the main menu.");
-            webshopDBContext.Add(customer);
-            try
-            {
-                webshopDBContext.SaveChanges();
-
-            }
-
-            catch (DbUpdateConcurrencyException exception)
-            {
-                Console.WriteLine($"Something went wrong. Sorry. Try again later.{exception}");
-            }
-
             Console.ReadKey();
+            menu.DisplaMainMenu();
+        }
 
+        public void LogIn()
+        {
+            using (WebshopDBContext webshopDBContext = new WebshopDBContext())
+            {
+                Menu menu = new Menu();
+
+                Console.WriteLine("Please, enter your Email.");
+                string Email = Console.ReadLine();
+                Console.WriteLine("Please. enter your password");
+                string Password = Console.ReadLine();
+
+
+                string lookForEmail = webshopDBContext.Customers
+                    .Where(c => c.Email == Email).FirstOrDefault().Email;
+                string lookForPassword = webshopDBContext.Customers
+                    .Where(c => c.Password == Password).FirstOrDefault().Password;
+
+                if (lookForEmail.Equals(Email) && lookForPassword.Equals(Password))
+                {
+                                     
+                    var customer = webshopDBContext.Customers
+                        .Where(c => c.Email == Email)
+                        .FirstOrDefault();
+
+                    customer.IsLoggedin = true;
+
+
+                    Console.WriteLine($"Welcome {customer.FirstName}, you are now logged in!");
+                    webshopDBContext.Customers.Update(customer);
+                    webshopDBContext.SaveChanges();
+                    Console.ReadKey();
+                    menu.DisplayLoginSignUpMenu();
+                }
+            
+            }
 
         }
 

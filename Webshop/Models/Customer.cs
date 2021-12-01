@@ -20,12 +20,16 @@ namespace Webshop.Models
 
         [MaxLength(150), Required]
         public string Email { get; set; }
+
+        [MaxLength(20), Required]
+        public string Password { get; set; }
+
         public bool IsLoggedin { get; set; }
 
         [MaxLength(150)]
         public string Address { get; set; }
 
-        public IEnumerable<Order> Orders { get; set; } 
+        public List<Order> Orders { get; set; } 
 
     }
 }

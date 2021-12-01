@@ -75,6 +75,11 @@ namespace Webshop.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
@@ -86,8 +91,9 @@ namespace Webshop.Migrations
                             Address = "Vägen 11, 447 74 Vägen",
                             Email = "annabanan@gmail.com",
                             FirstName = "Anna",
-                            IsLoggedin = true,
-                            LastName = "Johnson"
+                            IsLoggedin = false,
+                            LastName = "Johnson",
+                            Password = "1234"
                         });
                 });
 
@@ -129,7 +135,7 @@ namespace Webshop.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int?>("OrdersId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -145,7 +151,7 @@ namespace Webshop.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrdersId");
 
                     b.HasIndex("Shopping_CartId");
 
@@ -213,9 +219,9 @@ namespace Webshop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Webshop.Models.Order", "Order")
+                    b.HasOne("Webshop.Models.Order", "Orders")
                         .WithMany("Products")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrdersId");
 
                     b.HasOne("Webshop.Models.Shopping_Cart", null)
                         .WithMany("Products")

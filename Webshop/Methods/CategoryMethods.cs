@@ -17,7 +17,7 @@ namespace Webshop.Methods
             for (int i = 0; i < categoriesFromDB.Count; i++)
             {
                 var categories = categoriesFromDB[i];
-                Console.WriteLine($"Name: {categories.CategoryName}");
+                Console.WriteLine($"CategoryId: {categories.CategoryId}\n Name: {categories.CategoryName}");
             }
 
             return (categoriesFromDB);
