@@ -28,6 +28,7 @@ namespace Webshop.Migrations
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     Email = table.Column<string>(maxLength: 150, nullable: false),
+                    Password = table.Column<string>(maxLength: 20, nullable: false),
                     IsLoggedin = table.Column<bool>(nullable: false),
                     Address = table.Column<string>(maxLength: 150, nullable: true)
                 },
@@ -119,8 +120,8 @@ namespace Webshop.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "Id", "Address", "Email", "FirstName", "IsLoggedin", "LastName" },
-                values: new object[] { 1, "Vägen 11, 447 74 Vägen", "annabanan@gmail.com", "Anna", true, "Johnson" });
+                columns: new[] { "Id", "Address", "Email", "FirstName", "IsLoggedin", "LastName", "Password" },
+                values: new object[] { 1, "Vägen 11, 447 74 Vägen", "annabanan@gmail.com", "Anna", true, "Johnson", "1234" });
 
             migrationBuilder.InsertData(
                 table: "Products",

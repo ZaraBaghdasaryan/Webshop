@@ -28,12 +28,39 @@ namespace Webshop
                 case "2":
                     break;
                 case "3":
-                    customerMethods.SignUp();
+                    DisplayLoginSignUpMenu();
                     break;
 
             }
         }
 
+        public void DisplayLoginSignUpMenu()
+        {
+            Console.Clear();
+            CustomerMethods customerMethods = new CustomerMethods();
+
+            Console.WriteLine("1. Sign Up");
+            Console.WriteLine("2. Log in");
+            Console.WriteLine("3. Go back to main menu");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            if (choice == 1)
+            {
+                Console.Clear();
+                customerMethods.SignUp();
+            }
+            else if (choice == 2)
+            {
+                Console.Clear();
+                customerMethods.LogIn();
+            }
+            else if (choice == 3)
+            {
+                Console.Clear();
+                DisplaMainMenu();
+            }
+
+        }
         public void DisplayProductsMenu()
         {
             ProductMethods product = new ProductMethods();

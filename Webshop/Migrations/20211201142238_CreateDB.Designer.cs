@@ -10,7 +10,7 @@ using Webshop;
 namespace Webshop.Migrations
 {
     [DbContext(typeof(WebshopDBContext))]
-    [Migration("20211201091524_CreateDB")]
+    [Migration("20211201142238_CreateDB")]
     partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,6 +77,11 @@ namespace Webshop.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
@@ -89,7 +94,8 @@ namespace Webshop.Migrations
                             Email = "annabanan@gmail.com",
                             FirstName = "Anna",
                             IsLoggedin = true,
-                            LastName = "Johnson"
+                            LastName = "Johnson",
+                            Password = "1234"
                         });
                 });
 

@@ -2,6 +2,7 @@
 using Webshop.Models;
 using Microsoft.EntityFrameworkCore;
 using Webshop;
+using System.Linq;
 
 namespace BicycleRental.Methods
 {
@@ -39,6 +40,43 @@ namespace BicycleRental.Methods
             Console.WriteLine("Well done! A new customer with their properties has been added to the database! Press enter if you want to return to the main menu.");
             Console.ReadKey();
             menu.DisplaMainMenu();
+        }
+
+        public void LogIn()
+        {
+            using (WebshopDBContext webshopDBContext = new WebshopDBContext())
+            {
+                Menu menu = new Menu();
+
+                Console.WriteLine("Please, enter your Email.");
+                string Email = Console.ReadLine();
+                Console.WriteLine("Please. enter your password");
+                string Password = Console.ReadLine();
+
+
+                string lookForEmail = webshopDBContext.Customers
+                    .Where(c => c.Email == Email).FirstOrDefault().Email;
+                string lookForPassword = webshopDBContext.Customers
+                    .Where(c => c.Password == Password).FirstOrDefault().Password;
+
+                if (lookForEmail.Equals(Email) && lookForPassword.Equals(Password))
+                {
+                                     
+                    var customer = webshopDBContext.Customers
+                        .Where(c => c.Email == Email)
+                        .FirstOrDefault();
+
+                    customer.IsLoggedin = true;
+
+
+                    Console.WriteLine($"Welcome {customer.FirstName}, you are now logged in!");
+                    webshopDBContext.Customers.Update(customer);
+                    webshopDBContext.SaveChanges();
+                    Console.ReadKey();
+                    menu.DisplayLoginSignUpMenu();
+                }
+            
+            }
 
         }
 

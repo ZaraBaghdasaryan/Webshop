@@ -42,9 +42,9 @@ namespace Webshop.Methods
                 webshopDBContext.Orders.Add(order);
                 webshopDBContext.SaveChanges();
                 Console.WriteLine("Order was created!");
-                Console.WriteLine($"OrderId: {order.Id} \n Total Price: {order.TotalPrice}");
+                Console.WriteLine($"OrderId: {order.Id} \n Total Price: {order.TotalPrice} \n Customer: {order.CustomerId}");
+                Console.ReadKey();
                 menu.GoBackToMain();
-
             }
         }
 

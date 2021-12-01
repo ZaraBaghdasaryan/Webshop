@@ -20,6 +20,7 @@ namespace Webshop.Models
 
         [MaxLength(150), Required]
         public string Email { get; set; }
+
         [MaxLength(20), Required]
         public string Password { get; set; }
 
