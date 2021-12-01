@@ -11,8 +11,7 @@ namespace BicycleRental.Methods
 
         {
             WebshopDBContext webshopDBContext = new WebshopDBContext();
-
-            Customer customer = new Customer();
+            
 
             Console.WriteLine("Please, enter your first name.");
             string FirstName = Console.ReadLine();
@@ -23,29 +22,19 @@ namespace BicycleRental.Methods
             Console.WriteLine("Please, enter your Address.");
             string Address = Console.ReadLine();
 
-
-            customer.FirstName = FirstName;
-            customer.LastName = LastName;
-            customer.Email = Email;
-            customer.Address = Address;
-
+            Customer customer = new Customer()
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                Email = Email,
+                Address = Address,
+                IsLoggedin = false
+            };
+            webshopDBContext.Customers.Add(customer);
+            webshopDBContext.SaveChanges();
 
             Console.WriteLine("Well done! A new customer with their properties has been added to the database! Press enter if you want to return to the main menu.");
-            webshopDBContext.Add(customer);
-            try
-            {
-                webshopDBContext.SaveChanges();
-
-            }
-
-            catch (DbUpdateConcurrencyException exception)
-            {
-                Console.WriteLine($"Something went wrong. Sorry. Try again later.{exception}");
-            }
-
             Console.ReadKey();
-
-
         }
 
         public void UpdateCustomer()
