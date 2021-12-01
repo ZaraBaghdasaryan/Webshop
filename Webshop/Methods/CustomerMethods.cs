@@ -25,6 +25,13 @@ namespace BicycleRental.Methods
             Console.WriteLine("Please, enter your Address.");
             string Address = Console.ReadLine();
 
+            Console.WriteLine("Welcome" + " " + FirstName + " " + LastName + " to our exciting store!");
+            Console.WriteLine("Here is your account information:" + " " + "Username:" + " " + Email + " " + "Name:" + " " + FirstName + " " + LastName + " Adress: " + Address);
+
+            Console.WriteLine("Please, press any key to go back to main menu");
+            Console.ReadKey();
+            menu.DisplaMainMenu();
+
             Customer customer = new Customer()
             {
                 FirstName = FirstName,
@@ -34,10 +41,10 @@ namespace BicycleRental.Methods
                 Address = Address,
                 IsLoggedin = false
             };
+
             webshopDBContext.Customers.Add(customer);
             webshopDBContext.SaveChanges();
 
-            Console.WriteLine("Well done! A new customer with their properties has been added to the database! Press enter if you want to return to the main menu.");
             Console.ReadKey();
             menu.DisplaMainMenu();
         }
