@@ -38,8 +38,8 @@ namespace Webshop.Methods
                 webshopDBContext.Orders.Add(order);
                 webshopDBContext.SaveChanges();
 
-                var updatedOP = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().IsActive = false;
-                webshopDBContext.SaveChanges(updatedOP);
+                //var updatedOP = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().IsActive = false;
+                //webshopDBContext.SaveChanges(updatedOP);
 
                 Console.WriteLine("Order was created!");
                 Console.WriteLine($"OrderId: {order.OrderId} \n Total Price: {order.TotalPrice} \n Customer: {order.CustomerId}");
