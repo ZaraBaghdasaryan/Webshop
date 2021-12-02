@@ -27,6 +27,9 @@ namespace Webshop.Methods
                 Console.WriteLine("Which product do you want?");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
+                Console.WriteLine("How many would you like?");
+                int numberOfProducts = Convert.ToInt32(Console.ReadLine());
+
                 webshopDBContext.Products.Find(choice).Availability -= choice;
 
                 var order = new Order()
@@ -37,7 +40,11 @@ namespace Webshop.Methods
                     CustomerId = webshopDBContext.Customers
                     .Where(c => c.IsLoggedin == true).FirstOrDefault().Id,
                     Product = webshopDBContext.Products.Find(choice),
-                    TotalPrice = webshopDBContext.Products.Find(choice).Price
+                    // TotalPrice = webshopDBContext.Products.Find(choice).Price
+
+                    TotalPrice = webshopDBContext.Products.Find(choice).Price * numberOfProducts
+
+
                 };
                 webshopDBContext.Orders.Add(order);
                 webshopDBContext.SaveChanges();
