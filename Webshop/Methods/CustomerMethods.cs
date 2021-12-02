@@ -57,30 +57,6 @@ namespace BicycleRental.Methods
 
         }
 
-        //public void LogIn()
-        //{
-        //    Menu menu = new Menu();
-        //    Console.WriteLine("Please, write your Email: ");
-        //    string email = Console.ReadLine();
-
-        //    Console.WriteLine("Please, write your Password: ");
-        //    string password = Console.ReadLine();
-
-        //    if ((email == Email) && (password == Password))
-        //    {
-        //        Console.WriteLine("Hello " + FirstName + " " + LastName! + " " + "Welcome back!");
-        //        IsLoggedin = true;
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("We are sorry. It seems like you provided wrong Username or Password.");
-        //        IsLoggedin = false;
-        //        Console.WriteLine("Please, press any key to go back to main menu.");
-        //        Console.ReadKey();
-        //        menu.DisplaMainMenu();
-        //    }
-        //}
-
         public void LogIn()
         {
             using (WebshopDBContext webshopDBContext = new WebshopDBContext())

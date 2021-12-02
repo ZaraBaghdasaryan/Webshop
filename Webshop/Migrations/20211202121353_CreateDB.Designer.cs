@@ -10,7 +10,7 @@ using Webshop;
 namespace Webshop.Migrations
 {
     [DbContext(typeof(WebshopDBContext))]
-    [Migration("20211202083523_CreateDB")]
+    [Migration("20211202121353_CreateDB")]
     partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,7 +101,7 @@ namespace Webshop.Migrations
 
             modelBuilder.Entity("Webshop.Models.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -109,19 +109,40 @@ namespace Webshop.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("TotalPrice")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Webshop.Models.OrderProducts", b =>
+                {
+                    b.Property<int>("OrderProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OrderProductsPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrdersOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OrderProductId");
+
+                    b.HasIndex("OrdersOrderId");
+
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("Webshop.Models.Product", b =>
@@ -137,7 +158,7 @@ namespace Webshop.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrdersId")
+                    b.Property<int?>("OrderProductsOrderProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -153,7 +174,7 @@ namespace Webshop.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("OrdersId");
+                    b.HasIndex("OrderProductsOrderProductId");
 
                     b.HasIndex("Shopping_CartId");
 
@@ -205,12 +226,13 @@ namespace Webshop.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("Webshop.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("Webshop.Models.OrderProducts", b =>
+                {
+                    b.HasOne("Webshop.Models.Order", "Orders")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("OrdersOrderId");
                 });
 
             modelBuilder.Entity("Webshop.Models.Product", b =>
@@ -221,9 +243,9 @@ namespace Webshop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Webshop.Models.Order", "Orders")
+                    b.HasOne("Webshop.Models.OrderProducts", "OrderProducts")
                         .WithMany("Products")
-                        .HasForeignKey("OrdersId");
+                        .HasForeignKey("OrderProductsOrderProductId");
 
                     b.HasOne("Webshop.Models.Shopping_Cart", null)
                         .WithMany("Products")

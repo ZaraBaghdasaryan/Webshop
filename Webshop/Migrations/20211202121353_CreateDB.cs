@@ -38,6 +38,48 @@ namespace Webshop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalPrice = table.Column<int>(nullable: false),
+                    CustomerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderProducts",
+                columns: table => new
+                {
+                    OrderProductId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderProductsPrice = table.Column<int>(nullable: false),
+                    OrdersOrderId = table.Column<int>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    ProductName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderProducts", x => x.OrderProductId);
+                    table.ForeignKey(
+                        name: "FK_OrderProducts_Orders_OrdersOrderId",
+                        column: x => x.OrdersOrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -47,7 +89,7 @@ namespace Webshop.Migrations
                     Price = table.Column<int>(nullable: false),
                     Availability = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
-                    OrdersId = table.Column<int>(nullable: true),
+                    OrderProductsOrderProductId = table.Column<int>(nullable: true),
                     Shopping_CartId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -59,33 +101,12 @@ namespace Webshop.Migrations
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TotalPrice = table.Column<decimal>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Orders_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Products_OrderProducts_OrderProductsOrderProductId",
+                        column: x => x.OrderProductsOrderProductId,
+                        principalTable: "OrderProducts",
+                        principalColumn: "OrderProductId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -125,13 +146,18 @@ namespace Webshop.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "Availability", "CategoryId", "OrdersId", "Price", "ProductName", "Shopping_CartId" },
+                columns: new[] { "ProductId", "Availability", "CategoryId", "OrderProductsOrderProductId", "Price", "ProductName", "Shopping_CartId" },
                 values: new object[] { 1, 10, 1, null, 699, "Space Suit 1", null });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "Availability", "CategoryId", "OrdersId", "Price", "ProductName", "Shopping_CartId" },
+                columns: new[] { "ProductId", "Availability", "CategoryId", "OrderProductsOrderProductId", "Price", "ProductName", "Shopping_CartId" },
                 values: new object[] { 2, 10, 2, null, 699, "Space Shuttle", null });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderProducts_OrdersOrderId",
+                table: "OrderProducts",
+                column: "OrdersOrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",
@@ -139,19 +165,14 @@ namespace Webshop.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_ProductId",
-                table: "Orders",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_OrdersId",
+                name: "IX_Products_OrderProductsOrderProductId",
                 table: "Products",
-                column: "OrdersId");
+                column: "OrderProductsOrderProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_Shopping_CartId",
@@ -162,14 +183,6 @@ namespace Webshop.Migrations
                 name: "IX_Shopping_Carts_ProductId",
                 table: "Shopping_Carts",
                 column: "ProductId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Products_Orders_OrdersId",
-                table: "Products",
-                column: "OrdersId",
-                principalTable: "Orders",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Products_Shopping_Carts_Shopping_CartId",
@@ -183,31 +196,38 @@ namespace Webshop.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Orders_Customers_CustomerId",
-                table: "Orders");
+                name: "FK_OrderProducts_Orders_OrdersOrderId",
+                table: "OrderProducts");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Orders_Products_ProductId",
-                table: "Orders");
+                name: "FK_Products_Categories_CategoryId",
+                table: "Products");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Shopping_Carts_Products_ProductId",
-                table: "Shopping_Carts");
+                name: "FK_Products_OrderProducts_OrderProductsOrderProductId",
+                table: "Products");
 
-            migrationBuilder.DropTable(
-                name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Products_Shopping_Carts_Shopping_CartId",
+                table: "Products");
 
             migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "OrderProducts");
+
+            migrationBuilder.DropTable(
                 name: "Shopping_Carts");
+
+            migrationBuilder.DropTable(
+                name: "Products");
         }
     }
 }

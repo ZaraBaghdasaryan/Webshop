@@ -16,6 +16,7 @@ namespace Webshop
         public DbSet<Order> Orders { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Shopping_Cart> Shopping_Carts { get; set; }
+        public DbSet<OrderProducts> OrderProducts { get; set; }
 
 
 

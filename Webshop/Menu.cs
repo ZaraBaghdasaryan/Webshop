@@ -12,10 +12,11 @@ namespace Webshop
         public void DisplaMainMenu()
         {
             CustomerMethods customerMethods = new CustomerMethods();
+            OrderMethods order = new OrderMethods();
             Console.Clear();
             Console.WriteLine("Here are your options:");
             Console.WriteLine("1. Browse products");
-            Console.WriteLine("2. Go to Shopping Cart");
+            Console.WriteLine("2. Checkout");
             Console.WriteLine("3. Sign in / Login");
 
             string choice = Console.ReadLine().Substring(0);
@@ -26,6 +27,7 @@ namespace Webshop
                     DisplayProductsMenu();
                     break;
                 case "2":
+                    order.CreateNewOrder();
                     break;
                 case "3":
                     DisplayLoginSignUpMenu();
@@ -65,8 +67,9 @@ namespace Webshop
         {
             ProductMethods product = new ProductMethods();
             OrderMethods order = new OrderMethods();
+            OrderProductMethods orderProduct = new OrderProductMethods();
             product.GetAllProducts(false);
-            order.CreateNewOrder();
+            orderProduct.CreateOrderProduct();
         }
 
         public void GoBackToMain()
