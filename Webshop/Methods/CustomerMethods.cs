@@ -1,12 +1,10 @@
-﻿using System;
-using Webshop.Models;
+﻿
+using System;
 using Microsoft.EntityFrameworkCore;
-using Webshop;
-using System.Linq;
 
-namespace BicycleRental.Methods
+namespace Webshop.methods
 {
-    public class CustomerMethods
+    public class customermethods
     {
         public string FirstName { get; set; }
 
@@ -20,9 +18,9 @@ namespace BicycleRental.Methods
 
         public void SignUp()
 
-        {
-            WebshopDBContext webshopDBContext = new WebshopDBContext();
-            Menu menu = new Menu();
+        //{
+        //    webshopdbcontext webshopdbcontext = new webshopdbcontext();
+        //    menu menu = new menu();
 
             Console.WriteLine("Please, enter your first name.");
             string FirstName = Console.ReadLine();
@@ -35,8 +33,10 @@ namespace BicycleRental.Methods
             Console.WriteLine("Please, enter your Address.");
             string Address = Console.ReadLine();
 
-            Console.WriteLine("Welcome" + " " + FirstName + " " + LastName + " to our exciting store!");
-            Console.WriteLine("Here is your account information:" + " " + "Username:" + " " + Email + " " + "Name:" + " " + FirstName + " " + LastName + " Adress: " + Address);
+            if (Address == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
 
             Console.WriteLine("Please, press any key to go back to main menu");
             Console.ReadKey();
@@ -52,8 +52,6 @@ namespace BicycleRental.Methods
                 IsLoggedin = false
             };
 
-            webshopDBContext.Customers.Add(customer);
-            webshopDBContext.SaveChanges();
 
             Console.ReadKey();
             menu.DisplaMainMenu();
@@ -95,20 +93,24 @@ namespace BicycleRental.Methods
                 Console.WriteLine("Please. enter your password");
                 string Password = Console.ReadLine();
 
-
-                string lookForEmail = webshopDBContext.Customers
-                    .Where(c => c.Email == Email).FirstOrDefault().Email;
-                string lookForPassword = webshopDBContext.Customers
-                    .Where(c => c.Password == Password).FirstOrDefault().Password;
-
-                if (lookForEmail.Equals(Email) && lookForPassword.Equals(Password))
+                if(Password == "back")
                 {
+                    menu.DisplayLoginSignUpMenu();
+                }
 
-                    var customer = webshopDBContext.Customers
-                        .Where(c => c.Email == Email)
-                        .FirstOrDefault();
+        //        //string lookforemail = webshopdbcontext.customers
+        //        //    .where(c => c.email == email).firstordefault().email;
+        //        //string lookforpassword = webshopdbcontext.customers
+        //        //    .where(c => c.password == password).firstordefault().password;
 
-                    customer.IsLoggedin = true;
+        //        //if (lookforemail.equals(email) && lookforpassword.equals(password))
+        //        //{
+
+        //        //    var customer = webshopdbcontext.customers
+        //        //        .where(c => c.email == email)
+        //        //        .firstordefault();
+
+        //        //    customer.isloggedin = true;
 
 
                     Console.WriteLine($"Welcome {customer.FirstName}, you are now logged in!");
@@ -118,8 +120,8 @@ namespace BicycleRental.Methods
                     menu.DisplayLoginSignUpMenu();
                 }
 
-            }
-        }
+        //    }
+        //}
 
 
             public void LogOut()
@@ -128,10 +130,10 @@ namespace BicycleRental.Methods
             Menu menu = new Menu();
             Order order = new Order();
 
-            using (WebshopDBContext webshopDBContext = new WebshopDBContext())
-            {
-                Console.WriteLine("To log out press 1");
-                var choice = Convert.ToInt32(Console.ReadLine());
+        //    using (webshopdbcontext webshopdbcontext = new webshopdbcontext())
+        //    {
+        //        console.writeline("to log out press 1");
+        //        var choice = convert.toint32(console.readline());
 
                 var customer = webshopDBContext.Customers.Find(choice).IsLoggedin = false;
 
@@ -146,39 +148,39 @@ namespace BicycleRental.Methods
 
         public void UpdateCustomer()
         {
-            WebshopDBContext webshopDBContext = new WebshopDBContext();
+            WebshopDBContext webshopdbcontext = new WebshopDBContext();
 
-            Console.WriteLine("Please, enter CustomerId.");
-            var customerId = Convert.ToInt32(Console.ReadLine());
-            var customer = webshopDBContext.Customers.Find(customerId);
+            Console.WriteLine("please, enter customerid.");
+            var customerid = Convert.ToInt32(Console.ReadLine());
+            var customer = webshopdbcontext.Customers.Find(customerid);
 
-            Console.WriteLine("Please, enter the new First Name for a customer. Current First Name is:" + " " + customer.FirstName);
-            string FirstName2 = Console.ReadLine();
-            Console.WriteLine("Please, enter the new Last Name for a customer. Current Last Name is:" + " " + customer.LastName);
-            string LastName2 = Console.ReadLine();
-            Console.WriteLine("Please, enter the new Email for a customer. Current Email is:" + " " + customer.Email);
-            string Email2 = Console.ReadLine();
-            Console.WriteLine("Please, enter the new Address for a customer. Current Address is:" + " " + customer.Address);
-            string Address2 = Console.ReadLine();
-
-
-            customer.FirstName = FirstName2;
-            customer.LastName = LastName2;
-            customer.Email = Email2;
-            customer.Address = Address2;
+            Console.WriteLine("please, enter the new first name for a customer. current first name is:" + " " + customer.FirstName);
+            string firstname2 = Console.ReadLine();
+            Console.WriteLine("please, enter the new last name for a customer. current last name is:" + " " + customer.LastName);
+            string lastname2 = Console.ReadLine();
+            Console.WriteLine("please, enter the new email for a customer. current email is:" + " " + customer.Email);
+            string email2 = Console.ReadLine();
+            Console.WriteLine("please, enter the new address for a customer. current address is:" + " " + customer.Address);
+            string address2 = Console.ReadLine();
 
 
-            Console.WriteLine("Well done! The updated Customer has been added to the database! Press enter if you want to return to the main menu.");
-            webshopDBContext.Update(customer);
+            customer.FirstName = firstname2;
+            customer.LastName = lastname2;
+            customer.Email = email2;
+            customer.Address = address2;
+
+
+            Console.WriteLine("well done! the updated customer has been added to the database! press enter if you want to return to the main menu.");
+            webshopdbcontext.Update(customer);
             try
             {
-                webshopDBContext.SaveChanges();
+                webshopdbcontext.SaveChanges();
 
             }
 
             catch (DbUpdateConcurrencyException exception)
             {
-                Console.WriteLine($"Something went wrong. Sorry. Try again later.{exception}"); //Save info about the error in the variable
+                Console.WriteLine($"something went wrong. sorry. try again later.{exception}"); //save info about the error in the variable
             }
 
             Console.ReadKey();
@@ -186,54 +188,54 @@ namespace BicycleRental.Methods
 
         }
 
-        public void DeleteCustomer()
+        public void deletecustomer()
         {
-            WebshopDBContext webshopDBContext = new WebshopDBContext(); //Why do we need to create a new variable to represent the database?
+            WebshopDBContext webshopdbcontext = new WebshopDBContext(); //why do we need to create a new variable to represent the database?
 
-            Console.WriteLine("Please, enter CustomerId.");
-            var customerId = Convert.ToInt32(Console.ReadLine());
-            var customer = webshopDBContext.Customers.Find(customerId); //Find always targeting PK
+            Console.WriteLine("please, enter customerid.");
+            var customerid = Convert.ToInt32(Console.ReadLine());
+            var customer = webshopdbcontext.Customers.Find(customerid); //find always targeting pk
 
             try
             {
 
-                webshopDBContext.Remove(customer);
-                webshopDBContext.SaveChanges();
+                webshopdbcontext.Remove(customer);
+                webshopdbcontext.SaveChanges();
             }
 
             catch (DbUpdateConcurrencyException exception)
             {
-                Console.WriteLine($"Something went wrong. Sorry. Try again later.{exception}");
+                Console.WriteLine($"something went wrong. sorry. try again later.{exception}");
             }
 
-            Console.WriteLine("Oops, the Customer has been deleted now. Hope that's what you wanted :P. Press enter if you want to return to the main menu.");
+            Console.WriteLine("oops, the customer has been deleted now. hope that's what you wanted :p. press enter if you want to return to the main menu.");
             Console.ReadKey();
 
 
         }
 
-        public void ReadCustomer()
+        public void readcustomer()
         {
 
-            WebshopDBContext webshopDBContext = new WebshopDBContext();
+            WebshopDBContext webshopdbcontext = new WebshopDBContext();
 
-            Console.WriteLine("Please, enter CustomerId to find the right customer.");
-            var customerId = Convert.ToInt32(Console.ReadLine());
-            var customer = webshopDBContext.Customers.Find(customerId);
+            Console.WriteLine("please, enter customerid to find the right customer.");
+            var customerid = Convert.ToInt32(Console.ReadLine());
+            var customer = webshopdbcontext.Customers.Find(customerid);
 
             if (customer == null)
             {
 
-                Console.WriteLine("CustomerId was not found.");
+                Console.WriteLine("customerid was not found.");
 
             }
 
             if (customer != null)
             {
-                Console.WriteLine("First Name is:" + " " + customer.FirstName);
-                Console.WriteLine("Last Name is:" + " " + customer.LastName);
-                Console.WriteLine("Email is:" + " " + customer.Email);
-                Console.WriteLine("Address is:" + " " + customer.Address);
+                Console.WriteLine("first name is:" + " " + customer.FirstName);
+                Console.WriteLine("last name is:" + " " + customer.LastName);
+                Console.WriteLine("email is:" + " " + customer.Email);
+                Console.WriteLine("address is:" + " " + customer.Address);
             }
 
             Console.ReadKey();

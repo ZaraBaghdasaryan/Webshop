@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Webshop;
 using System.Collections.Generic;
-using BicycleRental.Methods;
+using Webshop.Methods;
 
 namespace Webshop.Methods 
 {
