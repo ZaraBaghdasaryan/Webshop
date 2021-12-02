@@ -10,7 +10,7 @@ using Webshop;
 namespace Webshop.Migrations
 {
     [DbContext(typeof(WebshopDBContext))]
-    [Migration("20211201144636_CreateDB")]
+    [Migration("20211202133725_CreateDB")]
     partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,7 +101,7 @@ namespace Webshop.Migrations
 
             modelBuilder.Entity("Webshop.Models.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -109,19 +109,48 @@ namespace Webshop.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
 
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Webshop.Models.OrderProducts", b =>
+                {
+                    b.Property<int>("OrderProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OrderProductsPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrdersOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderProductId");
+
+                    b.HasIndex("OrdersOrderId");
+
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("Webshop.Models.Product", b =>
@@ -137,9 +166,6 @@ namespace Webshop.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrdersId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
@@ -152,8 +178,6 @@ namespace Webshop.Migrations
                     b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("OrdersId");
 
                     b.HasIndex("Shopping_CartId");
 
@@ -205,9 +229,16 @@ namespace Webshop.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("Webshop.Models.Product", "Product")
-                        .WithMany()
+            modelBuilder.Entity("Webshop.Models.OrderProducts", b =>
+                {
+                    b.HasOne("Webshop.Models.Order", "Orders")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("OrdersOrderId");
+
+                    b.HasOne("Webshop.Models.Product", "Products")
+                        .WithMany("OrderProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -220,10 +251,6 @@ namespace Webshop.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Webshop.Models.Order", "Orders")
-                        .WithMany("Products")
-                        .HasForeignKey("OrdersId");
 
                     b.HasOne("Webshop.Models.Shopping_Cart", null)
                         .WithMany("Products")

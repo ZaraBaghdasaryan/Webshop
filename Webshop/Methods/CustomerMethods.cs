@@ -8,16 +8,6 @@ namespace BicycleRental.Methods
 {
     public class CustomerMethods
     {
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public string Email { get; set; }
-
-        public string Password { get; set; }
-
-        public bool IsLoggedin { get; set; }
-
         public void SignUp()
 
         {
@@ -25,22 +15,45 @@ namespace BicycleRental.Methods
             Menu menu = new Menu();
 
             Console.WriteLine("Please, enter your first name.");
-            string FirstName = Console.ReadLine();
+            string FirstName = Console.ReadLine().ToLower();
+
+            if(FirstName == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
+
             Console.WriteLine("Please, enter you last name.");
-            string LastName = Console.ReadLine();
+            string LastName = Console.ReadLine().ToLower();
+
+            if (LastName == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
+
             Console.WriteLine("Please, enter your Email.");
-            string Email = Console.ReadLine();
+            string Email = Console.ReadLine().ToLower();
+
+            if (Email == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
+
+
             Console.WriteLine("Please. enter your password");
-            string Password = Console.ReadLine();
+            string Password = Console.ReadLine().ToLower();
+
+            if (Password == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
+
             Console.WriteLine("Please, enter your Address.");
-            string Address = Console.ReadLine();
+            string Address = Console.ReadLine().ToLower();
 
-            Console.WriteLine("Welcome" + " " + FirstName + " " + LastName + " to our exciting store!");
-            Console.WriteLine("Here is your account information:" + " " + "Username:" + " " + Email + " " + "Name:" + " " + FirstName + " " + LastName + " Adress: " + Address);
-
-            Console.WriteLine("Please, press any key to go back to main menu");
-            Console.ReadKey();
-            menu.DisplaMainMenu();
+            if (Address == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
 
             Customer customer = new Customer()
             {
@@ -55,46 +68,37 @@ namespace BicycleRental.Methods
             webshopDBContext.Customers.Add(customer);
             webshopDBContext.SaveChanges();
 
+            Console.WriteLine("Welcome" + " " + FirstName + " " + LastName + " to our exciting store!");
+            Console.WriteLine("Here is your account information:" + " " + "Username:" + " " + Email + " " + "Name:" + " " + FirstName + " " + LastName + " Adress: " + Address);
+
             Console.ReadKey();
             menu.DisplaMainMenu();
-            
+            Console.WriteLine("Please, press any key to go back to main menu");
+
         }
-
-        //public void LogIn()
-        //{
-        //    Menu menu = new Menu();
-        //    Console.WriteLine("Please, write your Email: ");
-        //    string email = Console.ReadLine();
-
-        //    Console.WriteLine("Please, write your Password: ");
-        //    string password = Console.ReadLine();
-
-        //    if ((email == Email) && (password == Password))
-        //    {
-        //        Console.WriteLine("Hello " + FirstName + " " + LastName! + " " + "Welcome back!");
-        //        IsLoggedin = true;
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("We are sorry. It seems like you provided wrong Username or Password.");
-        //        IsLoggedin = false;
-        //        Console.WriteLine("Please, press any key to go back to main menu.");
-        //        Console.ReadKey();
-        //        menu.DisplaMainMenu();
-        //    }
-        //}
 
         public void LogIn()
         {
             using (WebshopDBContext webshopDBContext = new WebshopDBContext())
             {
+                Console.WriteLine("Write >back< if you want to go back");
                 Menu menu = new Menu();
 
                 Console.WriteLine("Please, enter your Email.");
-                string Email = Console.ReadLine();
-                Console.WriteLine("Please. enter your password");
-                string Password = Console.ReadLine();
+                string Email = Console.ReadLine().ToLower();
 
+                if (Email == "back")
+                {
+                    menu.DisplayLoginSignUpMenu();
+                }
+
+                Console.WriteLine("Please. enter your password");
+                string Password = Console.ReadLine().ToLower();
+
+                if(Password == "back")
+                {
+                    menu.DisplayLoginSignUpMenu();
+                }
 
                 string lookForEmail = webshopDBContext.Customers
                     .Where(c => c.Email == Email).FirstOrDefault().Email;
@@ -117,13 +121,16 @@ namespace BicycleRental.Methods
                     Console.ReadKey();
                     menu.DisplayLoginSignUpMenu();
                 }
+                else
+                {
+                    Console.WriteLine("No user matching those credentials were found. Please try again");
+                    LogIn();
+                }
 
             }
         }
 
-
-            public void LogOut()
-
+        public void LogOut()
         {
             Menu menu = new Menu();
             Order order = new Order();
@@ -133,14 +140,11 @@ namespace BicycleRental.Methods
                 Console.WriteLine("To log out press 1");
                 var choice = Convert.ToInt32(Console.ReadLine());
 
-                var customer = webshopDBContext.Customers.Find(choice).IsLoggedin = false;
+                var customer = webshopDBContext.Customers.Where(c => c.IsLoggedin == true).FirstOrDefault().IsLoggedin = false;
+                webshopDBContext.SaveChanges(customer);
 
-                webshopDBContext.Orders.Add(order);
-
-                webshopDBContext.SaveChanges();
-
-                Console.WriteLine("Now you have logged out. Press enter to go back to main menu");
-                menu.DisplaMainMenu();
+                Console.WriteLine("Now you have logged out. Press any key to go back to the login menu");
+                menu.DisplayLoginSignUpMenu();
             }
         }
 
