@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using Webshop.Methods;
 using Webshop.Models;
+using webshop.models;
+using System.Linq;
 
 namespace Webshop
 {
@@ -21,12 +23,27 @@ namespace Webshop
 
             string choice = Console.ReadLine().Substring(0);
 
-            switch(choice)
+            ShoppingCartMethods shoppingCart = new ShoppingCartMethods();
+
+            switch (choice)
+                
             {
                 case "1":
                     DisplayProductsMenu();
                     break;
                 case "2":
+                    if ((shoppingCart.Cartlist != null) && (!shoppingCart.Cartlist.Any()))
+                    {
+                        Console.WriteLine("The shopping cart now is empty.");
+                        Console.WriteLine("Press any key to go back");
+                        Console.ReadKey();
+                        Console.Clear();
+                        DisplaMainMenu();
+                    }
+                    else
+                    {
+                        shoppingCart.PrintCart(shoppingCart.Cartlist);
+                    }
                     break;
                 case "3":
                     DisplayLoginSignUpMenu();

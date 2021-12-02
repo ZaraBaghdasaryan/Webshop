@@ -20,7 +20,9 @@ namespace Webshop.Methods
             if(testing)
             {
                 userInput = 1;
-            }else
+            }
+            
+            else
             {
                 Console.Clear();
                 category.GetAllCategories();

@@ -13,9 +13,3 @@ namespace Webshop
     }
 }
 
-/*Customer methods- Zara
-Shopping Cart methods - Zara
-Order methods - Zara
-Product methods - Stephanie
-Category methods- Stephanie
- */
