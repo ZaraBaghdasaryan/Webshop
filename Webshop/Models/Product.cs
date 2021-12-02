@@ -26,6 +26,8 @@ namespace Webshop.Models
         public int CategoryId { get; set; }
         public Order Orders { get; set; }
 
+        public static List<Product> ProductList = new List<Product>();
+
         public string PrintProducts()
         {
             return "Id: " + ProductId + "\n Name: " + ProductName + "\n Price: " + Price;

@@ -8,7 +8,6 @@ namespace Webshop.Methods
 {
     public class ProductMethods
     {
-
         public IEnumerable<Product> GetAllProducts( bool testing)
         {
             Menu menu = new Menu();
