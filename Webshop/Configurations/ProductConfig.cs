@@ -18,8 +18,8 @@ namespace Webshop.Configurations
                 .WithMany(p => p.Products);
 
             builder
-                .HasOne(o => o.OrderProducts)
-                .WithMany(p => p.Products);
+                .HasMany(o => o.OrderProducts)
+                .WithOne(p => p.Products);
         }
     }
 }

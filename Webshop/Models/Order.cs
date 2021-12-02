@@ -15,11 +15,13 @@ namespace Webshop.Models
 
         [Required]
         public int TotalPrice { get; set; }
+        public int Quantity { get; set; }
 
         public Customer Customer { get; set; }
 
         public int CustomerId { get; set; }
         public ICollection<OrderProducts> OrderProducts { get; set; }
+        
 
     }
 }

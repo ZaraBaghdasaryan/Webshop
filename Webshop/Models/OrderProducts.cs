@@ -16,7 +16,8 @@ namespace Webshop.Models
 
         public bool IsActive { get; set; }
 
-        public ICollection<Product> Products { get; set; }
-        public string ProductName { get; set; }
+        public Product Products { get; set; }
+        public int ProductId { get; set; }
+        public int Quatity { get; set; }
     }
 }

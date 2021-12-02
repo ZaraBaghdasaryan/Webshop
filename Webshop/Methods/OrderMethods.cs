@@ -25,7 +25,7 @@ namespace Webshop.Methods
 
                 var customer = new Customer();
 
-                
+
                 var order = new Order()
                 {
                     OrderProducts = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).ToList(),
@@ -33,7 +33,7 @@ namespace Webshop.Methods
                     .Where(c => c.IsLoggedin == true).FirstOrDefault(),
                     CustomerId = webshopDBContext.Customers
                     .Where(c => c.IsLoggedin == true).FirstOrDefault().Id,
-                    TotalPrice = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().OrderProductsPrice
+                    TotalPrice = CalculateTotal()
                 };
                 webshopDBContext.Orders.Add(order);
                 webshopDBContext.SaveChanges();
@@ -41,6 +41,25 @@ namespace Webshop.Methods
                 Console.WriteLine($"OrderId: {order.OrderId} \n Total Price: {order.TotalPrice} \n Customer: {order.CustomerId}");
                 Console.ReadKey();
                 menu.GoBackToMain();
+            }
+        }
+
+        public int CalculateTotal()
+        {
+            using (WebshopDBContext webshopDBContext = new WebshopDBContext())
+            {
+                int totalPrice = 0;
+                webshopDBContext.Products.Load();
+                webshopDBContext.OrderProducts.Load();
+
+                var product = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
+
+                var pricePerLine = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().OrderProductsPrice;
+                var qty = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().Quatity;
+
+                totalPrice = pricePerLine * qty;
+
+                return totalPrice;
             }
         }
 

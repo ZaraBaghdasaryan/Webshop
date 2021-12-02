@@ -33,8 +33,9 @@ namespace Webshop.Methods
                 //{
                     var newOrderProduct = new OrderProducts()
                     {
-                        Products = webshopDBContext.Products.Where(p => p.ProductId == choice).ToList(),
-                        ProductName = webshopDBContext.Products.Find(choice).ProductName.ToString(),
+                        Products = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault(),
+                        ProductId = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault().ProductId,
+                        Quatity = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault().Availability-=choice,
                         OrderProductsPrice = webshopDBContext.Products.Find(choice).Price,
                         IsActive = true
                     };
