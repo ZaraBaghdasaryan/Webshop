@@ -37,6 +37,10 @@ namespace Webshop.Methods
                 };
                 webshopDBContext.Orders.Add(order);
                 webshopDBContext.SaveChanges();
+
+                var updatedOP = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().IsActive = false;
+                webshopDBContext.SaveChanges(updatedOP);
+
                 Console.WriteLine("Order was created!");
                 Console.WriteLine($"OrderId: {order.OrderId} \n Total Price: {order.TotalPrice} \n Customer: {order.CustomerId}");
                 Console.ReadKey();
@@ -55,7 +59,7 @@ namespace Webshop.Methods
                 var product = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
 
                 var pricePerLine = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().OrderProductsPrice;
-                var qty = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().Quatity;
+                var qty = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().Quantity;
 
                 totalPrice = pricePerLine * qty;
 

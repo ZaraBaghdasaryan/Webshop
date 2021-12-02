@@ -59,6 +59,11 @@ namespace Webshop
             else if (choice == 3)
             {
                 Console.Clear();
+                customerMethods.LogOut();
+            }
+            else if (choice == 4)
+            {
+                Console.Clear();
                 DisplaMainMenu();
             }
 

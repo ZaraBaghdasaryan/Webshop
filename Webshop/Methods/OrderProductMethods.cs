@@ -24,26 +24,28 @@ namespace Webshop.Methods
                 Console.WriteLine("Which product do you want?");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
-                webshopDBContext.Products.Find(choice).Availability -= choice;
+                
+
+                Console.WriteLine("How many do you want?");
+                int quantitychosen = Convert.ToInt32(Console.ReadLine());
+
+                webshopDBContext.Products.Find(choice).Availability -= quantitychosen;
 
 
-               var product = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
-
-                //if(product == null)
-                //{
-                    var newOrderProduct = new OrderProducts()
+                var newOrderProduct = new OrderProducts()
                     {
                         Products = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault(),
                         ProductId = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault().ProductId,
-                        Quatity = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault().Availability-=choice,
+                        Quantity = quantitychosen,
                         OrderProductsPrice = webshopDBContext.Products.Find(choice).Price,
                         IsActive = true
                     };
 
                     webshopDBContext.OrderProducts.Add(newOrderProduct);
                     webshopDBContext.SaveChanges();
+
                     Console.WriteLine("OrderProduct has been created. Do you want to continue shopping?");
-                    Console.WriteLine($"");
+                    Console.WriteLine($"Product: {newOrderProduct.ProductId} \nQuantity: {newOrderProduct.Quantity}");
                     Console.WriteLine("Press 1 for yes or 2 for no. If you press 2 you will go to checkout and end process your order.");
 
                     choice = Convert.ToInt32(Console.ReadLine());

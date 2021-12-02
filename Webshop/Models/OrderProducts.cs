@@ -18,6 +18,6 @@ namespace Webshop.Models
 
         public Product Products { get; set; }
         public int ProductId { get; set; }
-        public int Quatity { get; set; }
+        public int Quantity { get; set; }
     }
 }
