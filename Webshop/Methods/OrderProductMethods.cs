@@ -46,19 +46,10 @@ namespace Webshop.Methods
 
                     Console.WriteLine("OrderProduct has been created. Do you want to continue shopping?");
                     Console.WriteLine($"Product: {newOrderProduct.ProductId} \nQuantity: {newOrderProduct.Quantity}");
-                    Console.WriteLine("Press 1 for yes or 2 for no. If you press 2 you will go to checkout and end process your order.");
+                    Console.WriteLine("Press any key to go back to main menu.");
+                    Console.ReadKey();
+                    menu.DisplayProductsMenu();
 
-                    choice = Convert.ToInt32(Console.ReadLine());
-
-                    if (choice == 1)
-                    {
-                        menu.DisplayProductsMenu();
-
-                    }
-                    else
-                    {
-                        menu.GoBackToMain();
-                    }
 
                 //}
                 //else

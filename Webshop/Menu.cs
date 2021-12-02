@@ -43,7 +43,8 @@ namespace Webshop
 
             Console.WriteLine("1. Sign Up");
             Console.WriteLine("2. Log in");
-            Console.WriteLine("3. Go back to main menu");
+            Console.WriteLine("3. Log out");
+            Console.WriteLine("4. Go back to main menu");
             int choice = Convert.ToInt32(Console.ReadLine());
 
             if (choice == 1)

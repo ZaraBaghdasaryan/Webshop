@@ -43,6 +43,8 @@ namespace Webshop.Methods
 
                 Console.WriteLine("Order was created!");
                 Console.WriteLine($"OrderId: {order.OrderId} \n Total Price: {order.TotalPrice} \n Customer: {order.CustomerId}");
+
+                Console.WriteLine("\n Press any key to continue");
                 Console.ReadKey();
                 menu.GoBackToMain();
             }

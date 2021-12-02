@@ -16,14 +16,44 @@ namespace BicycleRental.Methods
 
             Console.WriteLine("Please, enter your first name.");
             string FirstName = Console.ReadLine().ToLower();
+
+            if(FirstName == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
+
             Console.WriteLine("Please, enter you last name.");
             string LastName = Console.ReadLine().ToLower();
+
+            if (LastName == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
+
             Console.WriteLine("Please, enter your Email.");
             string Email = Console.ReadLine().ToLower();
+
+            if (Email == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
+
+
             Console.WriteLine("Please. enter your password");
             string Password = Console.ReadLine().ToLower();
+
+            if (Password == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
+
             Console.WriteLine("Please, enter your Address.");
             string Address = Console.ReadLine().ToLower();
+
+            if (Address == "back")
+            {
+                menu.DisplayLoginSignUpMenu();
+            }
 
             Customer customer = new Customer()
             {
@@ -56,9 +86,19 @@ namespace BicycleRental.Methods
 
                 Console.WriteLine("Please, enter your Email.");
                 string Email = Console.ReadLine().ToLower();
+
+                if (Email == "back")
+                {
+                    menu.DisplayLoginSignUpMenu();
+                }
+
                 Console.WriteLine("Please. enter your password");
                 string Password = Console.ReadLine().ToLower();
 
+                if(Password == "back")
+                {
+                    menu.DisplayLoginSignUpMenu();
+                }
 
                 string lookForEmail = webshopDBContext.Customers
                     .Where(c => c.Email == Email).FirstOrDefault().Email;
