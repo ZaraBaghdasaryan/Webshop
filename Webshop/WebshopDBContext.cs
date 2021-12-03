@@ -15,7 +15,7 @@ namespace Webshop
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Shopping_Cart> Shopping_Carts { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<OrderProducts> OrderProducts { get; set; }
 
 
@@ -75,7 +75,7 @@ namespace Webshop
                     FirstName = "Anna",
                     LastName = "Johnson",
                     Address = "Vägen 11, 447 74 Vägen",
-                    IsLoggedin = false,
+                    IsLoggedin = true,
                     Email = "annabanan@gmail.com",
                     Password = "1234"
                 }
@@ -83,7 +83,9 @@ namespace Webshop
 
             modelbuilder
                 .ApplyConfiguration(new ProductConfig())
-                .ApplyConfiguration(new CategoryConfig());
+                .ApplyConfiguration(new CategoryConfig())
+                .ApplyConfiguration(new OrderConfig());
+                
 
         }
     }

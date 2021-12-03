@@ -20,7 +20,7 @@ namespace Webshop.Methods
                 Console.WriteLine($"CategoryId: {categories.CategoryId}\n Name: {categories.CategoryName}");
             }
 
-            return (categoriesFromDB);
+            return categoriesFromDB;
         }
     }
 }

@@ -23,51 +23,43 @@ namespace Webshop.Methods
 
                 Menu menu = new Menu();
 
-                var customer = new Customer();
+                var customer = webshopDBContext.Customers.Where(c => c.IsLoggedin == true).FirstOrDefault();
 
 
-                var order = new Order()
-                {
-                    OrderProducts = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).ToList(),
-                    Customer = webshopDBContext.Customers
-                    .Where(c => c.IsLoggedin == true).FirstOrDefault(),
-                    CustomerId = webshopDBContext.Customers
-                    .Where(c => c.IsLoggedin == true).FirstOrDefault().Id,
-                    TotalPrice = CalculateTotal()
-                };
-                webshopDBContext.Orders.Add(order);
-                webshopDBContext.SaveChanges();
+                    var order = new Order()
+                    {
+                        ShoppingCart = webshopDBContext.ShoppingCarts.Where(s => s.IsActive == true).FirstOrDefault(),
+                        ShoppingCartId = webshopDBContext.ShoppingCarts.Where(s => s.IsActive == true).FirstOrDefault().ShoppingCartId,
+                        Customer = webshopDBContext.Customers
+                        .Where(c => c.IsLoggedin == true).FirstOrDefault(),
+                        CustomerId = webshopDBContext.Customers
+                        .Where(c => c.IsLoggedin == true).FirstOrDefault().Id,
+                        TotalPrice = webshopDBContext.ShoppingCarts.Where(s => s.IsActive == true).FirstOrDefault().TotalPrice,
+                        Quantity = webshopDBContext.ShoppingCarts.Where(s => s.IsActive == true).FirstOrDefault().OrderProducts.Count
 
-                //var updatedOP = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().IsActive = false;
-                //webshopDBContext.SaveChanges(updatedOP);
+                    };
+                    webshopDBContext.Orders.Add(order);
+                    webshopDBContext.SaveChanges();
 
-                Console.WriteLine("Order was created!");
-                Console.WriteLine($"OrderId: {order.OrderId} \n Total Price: {order.TotalPrice} \n Customer: {order.CustomerId}");
+                    var updatedOP = webshopDBContext.ShoppingCarts.Where(o => o.IsActive == true).FirstOrDefault().IsActive = false;
+                    webshopDBContext.SaveChanges(updatedOP);
 
-                Console.WriteLine("\n Press any key to continue");
-                Console.ReadKey();
-                menu.GoBackToMain();
+
+
+                    Console.WriteLine("Order was created!");
+                    Console.WriteLine($"OrderId: {order.OrderId} \n Total Price: {order.TotalPrice}");
+
+                    Console.WriteLine("\n Press any key to continue");
+                    Console.ReadKey();
+                    menu.GoBackToMain();
+
+                    Console.WriteLine("You need to be logged in before you can complete you purchase. \n Please log in.");
+                    menu.DisplaMainMenu();
+                
+
             }
         }
 
-        public int CalculateTotal()
-        {
-            using (WebshopDBContext webshopDBContext = new WebshopDBContext())
-            {
-                int totalPrice = 0;
-                webshopDBContext.Products.Load();
-                webshopDBContext.OrderProducts.Load();
-
-                var product = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
-
-                var pricePerLine = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().OrderProductsPrice;
-                var qty = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().Quantity;
-
-                totalPrice = pricePerLine * qty;
-
-                return totalPrice;
-            }
-        }
 
 
 

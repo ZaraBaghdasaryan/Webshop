@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using webshop.models;
 using Webshop.Models;
 
 namespace Webshop.Methods
@@ -15,19 +14,17 @@ namespace Webshop.Methods
 
             using(WebshopDBContext webshopDBContext = new WebshopDBContext())
             {
+                ShoppingCartMethods shoppingCartMethods = new ShoppingCartMethods();
+
+
                 webshopDBContext.Products.Load();
                 webshopDBContext.OrderProducts.Load();
                 webshopDBContext.Orders.Load();
 
                 Menu menu = new Menu();
 
-                Console.WriteLine("Which product do you want?");
-                int choice = Convert.ToInt32(Console.ReadLine());
-
-                
-
-                Console.WriteLine("How many do you want?");
-                int quantitychosen = Convert.ToInt32(Console.ReadLine());
+                int choice = GetChosenProduct(false);
+                int quantitychosen = GetChosenQuantity(false);
 
                 webshopDBContext.Products.Find(choice).Availability -= quantitychosen;
 
@@ -37,12 +34,15 @@ namespace Webshop.Methods
                         Products = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault(),
                         ProductId = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault().ProductId,
                         Quantity = quantitychosen,
-                        OrderProductsPrice = webshopDBContext.Products.Find(choice).Price,
+                        OrderProductsPrice = webshopDBContext.Products.Find(choice).Price * quantitychosen,
                         IsActive = true
                 };
 
                 webshopDBContext.OrderProducts.Add(newOrderProduct);
                 webshopDBContext.SaveChanges();
+
+
+                shoppingCartMethods.CreateShoppingCart();
 
                 Console.WriteLine("OrderProduct has been created. Do you want to continue shopping?");
                 Console.WriteLine($"Product: {newOrderProduct.ProductId} \nQuantity: {newOrderProduct.Quantity}");
@@ -52,6 +52,44 @@ namespace Webshop.Methods
             }
         }
 
+        public int GetChosenProduct(bool testing)
+        {
+            int choice = 0;
+
+            if(testing == true)
+            {
+                 choice = 1;
+                return choice;
+            }
+            else
+            {
+                Console.WriteLine("Which product do you want?");
+                choice = Convert.ToInt32(Console.ReadLine());
+
+                return choice;
+            }
+            
+        }
+
+        public int GetChosenQuantity(bool testing)
+        {
+            int quantitychosen = 0;
+
+
+            if (testing == true)
+            {
+                quantitychosen = 1;
+                return quantitychosen;
+            }
+            else
+            {
+                Console.WriteLine("How many do you want?");
+                quantitychosen = Convert.ToInt32(Console.ReadLine());
+
+                return quantitychosen;
+            }
+              
+        }
 
     }
 }

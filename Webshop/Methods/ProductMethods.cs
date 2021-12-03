@@ -20,6 +20,7 @@ namespace Webshop.Methods
             if(testing)
             {
                 userInput = 1;
+
             }else
             {
                 Console.Clear();
@@ -29,18 +30,15 @@ namespace Webshop.Methods
                 Console.Clear();
             }
             for (int i = 0; i < productsFromDB.Count; i++)
-            {
-                
+            { 
                 var products = productsFromDB[i];
                 if (userInput == products.CategoryId)
                 {
                     Console.WriteLine($"\n Id: {products.ProductId} \n Name: {products.ProductName} \n Price: {products.Price}.- \n Number of items available for puchase: {products.Availability}pcs");
-
                 }
-
             }
 
-            return (productsFromDB);
+            return productsFromDB;
         }
 
         public void ResetAvailabilityWhenClosing()
