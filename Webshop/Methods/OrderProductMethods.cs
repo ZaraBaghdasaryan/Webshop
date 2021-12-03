@@ -23,8 +23,8 @@ namespace Webshop.Methods
 
                 Menu menu = new Menu();
 
-                int choice = GetChosenProduct();
-                int quantitychosen = GetChosenQuantity();
+                int choice = GetChosenProduct(false);
+                int quantitychosen = GetChosenQuantity(false);
 
                 webshopDBContext.Products.Find(choice).Availability -= quantitychosen;
 
@@ -52,24 +52,44 @@ namespace Webshop.Methods
             }
         }
 
-        public int GetChosenProduct()
+        public int GetChosenProduct(bool testing)
         {
+            int choice = 0;
 
-            Console.WriteLine("Which product do you want?");
-            int choice = Convert.ToInt32(Console.ReadLine());
+            if(testing == true)
+            {
+                 choice = 1;
+                return choice;
+            }
+            else
+            {
+                Console.WriteLine("Which product do you want?");
+                choice = Convert.ToInt32(Console.ReadLine());
 
-            return choice;
+                return choice;
+            }
+            
         }
 
-        public int GetChosenQuantity()
+        public int GetChosenQuantity(bool testing)
         {
-            Console.WriteLine("How many do you want?");
-            int quantitychosen = Convert.ToInt32(Console.ReadLine());
+            int quantitychosen = 0;
 
-            return quantitychosen;
+
+            if (testing == true)
+            {
+                quantitychosen = 1;
+                return quantitychosen;
+            }
+            else
+            {
+                Console.WriteLine("How many do you want?");
+                quantitychosen = Convert.ToInt32(Console.ReadLine());
+
+                return quantitychosen;
+            }
               
         }
-
 
     }
 }

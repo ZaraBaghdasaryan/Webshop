@@ -34,7 +34,7 @@ namespace webshop.models
                     {
                         OrderProducts = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).ToList(),
                         OrderProductId = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().OrderProductId,
-                        TotalPrice = CalculateTotal(),
+                        TotalPrice = CalculateTotal(false),
                         IsActive = true
                     };
 
@@ -53,19 +53,37 @@ namespace webshop.models
             }
         }
 
-        public int CalculateTotal()
+        public int CalculateTotal(bool testing)
         {
+            
+            
             using (WebshopDBContext webshopDBContext = new WebshopDBContext())
             {
-                int totalPrice = 0;
                 webshopDBContext.Products.Load();
                 webshopDBContext.OrderProducts.Load();
 
-                var product = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
+                int totalPrice = 0;
+                    
+                if(testing == true)
+                {
+                    int userInput = 1;
 
-                totalPrice = product.OrderProductsPrice;
+                    var products = webshopDBContext.Products.Where(p => p.ProductId == userInput).FirstOrDefault();
 
-                return totalPrice;
+                    totalPrice = products.Price;
+                    return totalPrice;
+                }
+                else
+                {
+                    webshopDBContext.Products.Load();
+                    webshopDBContext.OrderProducts.Load();
+
+                    var product = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
+
+                    totalPrice = product.OrderProductsPrice;
+
+                    return totalPrice;
+                }                
             }
         }
 

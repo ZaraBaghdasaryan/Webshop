@@ -38,7 +38,7 @@ namespace Webshop.Methods
                 }
             }
 
-            return (productsFromDB);
+            return productsFromDB;
         }
 
         public void ResetAvailabilityWhenClosing()
