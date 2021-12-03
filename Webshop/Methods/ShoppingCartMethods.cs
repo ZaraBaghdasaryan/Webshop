@@ -33,6 +33,7 @@ namespace webshop.models
                     var shoppingCart = new ShoppingCart()
                     {
                         OrderProducts = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).ToList(),
+                        OrderProductId = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().OrderProductId,
                         TotalPrice = CalculateTotal(),
                         IsActive = true
                     };
@@ -43,27 +44,12 @@ namespace webshop.models
                     webshopDBContext.SaveChanges(updatedOP);
 
                     Console.WriteLine("Order was created!");
-                    Console.WriteLine($"CartId: {shoppingCart.ShoppingCartId} \n Total Price: {shoppingCart.TotalPrice} \n Customer: {shoppingCart.OrderProducts}");
+                    Console.WriteLine($"CartId: {shoppingCart.ShoppingCartId} \n Total Price: {shoppingCart.TotalPrice}");
 
                     Console.WriteLine("\n Press any key to continue");
                     Console.ReadKey();
                     menu.GoBackToMain();
                 
-            }
-        }
-
-        public void AddOrderProductToCart(OrderProducts orderProducts)
-        {
-            using (WebshopDBContext webshopDBContext = new WebshopDBContext())
-            {
-                webshopDBContext.OrderProducts.Load();
-
-                var findProduct = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
-
-                
-
-
-                webshopDBContext.SaveChanges();
             }
         }
 
@@ -77,10 +63,7 @@ namespace webshop.models
 
                 var product = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
 
-                var pricePerLine = product.OrderProductsPrice;
-                var qty = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().Quantity;
-
-                totalPrice = pricePerLine * qty;
+                totalPrice = product.OrderProductsPrice;
 
                 return totalPrice;
             }

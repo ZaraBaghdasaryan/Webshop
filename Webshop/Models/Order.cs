@@ -20,11 +20,9 @@ namespace Webshop.Models
         public Customer Customer { get; set; }
 
         public int CustomerId { get; set; }
-        
+       
         public ShoppingCart ShoppingCart { get; set; }
         public int ShoppingCartId { get; set; }
-
-        public string ProductName { get; set; }
 
     }
 }

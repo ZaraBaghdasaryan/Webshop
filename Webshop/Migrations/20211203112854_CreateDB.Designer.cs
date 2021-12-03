@@ -10,7 +10,7 @@ using Webshop;
 namespace Webshop.Migrations
 {
     [DbContext(typeof(WebshopDBContext))]
-    [Migration("20211203104430_CreateDB")]
+    [Migration("20211203112854_CreateDB")]
     partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,9 +108,6 @@ namespace Webshop.Migrations
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");

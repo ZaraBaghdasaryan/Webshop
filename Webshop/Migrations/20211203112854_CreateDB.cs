@@ -83,8 +83,7 @@ namespace Webshop.Migrations
                     TotalPrice = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     CustomerId = table.Column<int>(nullable: false),
-                    ShoppingCartId = table.Column<int>(nullable: false),
-                    ProductName = table.Column<string>(nullable: true)
+                    ShoppingCartId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -33,7 +33,6 @@ namespace Webshop.Methods
                 {
                         Products = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault(),
                         ProductId = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault().ProductId,
-                        ProductName = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault().ProductName,
                         Quantity = quantitychosen,
                         OrderProductsPrice = webshopDBContext.Products.Find(choice).Price * quantitychosen,
                         IsActive = true
