@@ -35,20 +35,124 @@ namespace Webshop
                 new Product
                 {
                     ProductId = 1,
-                    ProductName = "Space Suit 1",
+                    ProductName = "Space Suit Purple",
                     Price = 699,
                     CategoryId = 1,
+                    Availability = 10
+                },
+                  new Product
+                  {
+                      ProductId = 1,
+                      ProductName = "Space Suit Black",
+                      Price = 699,
+                      CategoryId = 1,
+                      Availability = 10
+                  },
+                    new Product
+                    {
+                        ProductId = 1,
+                        ProductName = "Space Suit Yellow",
+                        Price = 699,
+                        CategoryId = 1,
+                        Availability = 10
+                    }, new Product
+                    {
+                        ProductId = 1,
+                        ProductName = "Space Suit Blue",
+                        Price = 699,
+                        CategoryId = 1,
+                        Availability = 10
+                    }, new Product
+                    {
+                        ProductId = 1,
+                        ProductName = "Space Suit Dark Blue",
+                        Price = 699,
+                        CategoryId = 1,
+                        Availability = 10
+                    },
+                new Product
+                {
+                    ProductId = 2,
+                    ProductName = "Space Shuttle Black",
+                    Price = 699,
+                    CategoryId = 2,
                     Availability = 10
                 },
                 new Product
                 {
                     ProductId = 2,
-                    ProductName = "Space Shuttle",
+                    ProductName = "Space Shuttle Blue",
                     Price = 699,
                     CategoryId = 2,
                     Availability = 10
-                }
+                },
+                new Product
+                {
+                    ProductId = 2,
+                    ProductName = "Space Shuttle Dark Blue",
+                    Price = 699,
+                    CategoryId = 2,
+                    Availability = 10
+                },
+                new Product
+                {
+                    ProductId = 2,
+                    ProductName = "Space Shuttle Silver",
+                    Price = 699,
+                    CategoryId = 2,
+                    Availability = 10
+                },
+                new Product
+                {
+                    ProductId = 2,
+                    ProductName = "Space Shuttle Red",
+                    Price = 699,
+                    CategoryId = 2,
+                    Availability = 10
+                },
+                 new Product
+                 {
+                     ProductId = 2,
+                     ProductName = "Learn to be weightless",
+                     Price = 699,
+                     CategoryId = 3,
+                     Availability = 10
+                 },
+                  new Product
+                  {
+                      ProductId = 2,
+                      ProductName = "Free fall training",
+                      Price = 699,
+                      CategoryId = 3,
+                      Availability = 10
+                  },
+                   new Product
+                   {
+                       ProductId = 2,
+                       ProductName = "Moon walk training",
+                       Price = 699,
+                       CategoryId = 3,
+                       Availability = 10
+                   },
+                    new Product
+                    {
+                        ProductId = 2,
+                        ProductName = "Survival on Mars",
+                        Price = 699,
+                        CategoryId = 3,
+                        Availability = 10
+                    },
+                     new Product
+                     {
+                         ProductId = 2,
+                         ProductName = "Conquer your deepest fears of cosmos",
+                         Price = 699,
+                         CategoryId = 3,
+                         Availability = 10
+                     }          
+
                 );
+
 
             modelbuilder
                 .Entity<Category>()
@@ -62,6 +166,11 @@ namespace Webshop
                 {
                     CategoryId = 2,
                     CategoryName = "Space Vehicles"
+                },
+                new Category
+                {
+                    CategoryId = 3,
+                    CategoryName = "Astronaut Training"
                 }
                 );
 
