@@ -30,30 +30,6 @@ namespace webshop.models
 
                 var activeshoppingCart = webshopDBContext.ShoppingCarts.Where(o => o.IsActive == true).FirstOrDefault();
 
-
-
-                if(activeshoppingCart.IsActive == true)
-                {
-                    var productToAdd = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
-
-                    activeshoppingCart.OrderProducts.Add(productToAdd);
-
-                    webshopDBContext.ShoppingCarts.Add(activeshoppingCart);
-                    webshopDBContext.SaveChanges();
-
-                    var updatedOP = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().IsActive = false;
-                    webshopDBContext.SaveChanges(updatedOP);
-
-                    Console.WriteLine("Order was created!");
-                    Console.WriteLine($"CartId: {activeshoppingCart.ShoppingCartId} \n Total Price: {activeshoppingCart.TotalPrice} \n Customer: {activeshoppingCart.OrderProducts}");
-
-                    Console.WriteLine("\n Press any key to continue");
-                    Console.ReadKey();
-                    menu.GoBackToMain();
-
-                }
-                else
-                {
                     var shoppingCart = new ShoppingCart()
                     {
                         OrderProducts = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).ToList(),
@@ -72,7 +48,7 @@ namespace webshop.models
                     Console.WriteLine("\n Press any key to continue");
                     Console.ReadKey();
                     menu.GoBackToMain();
-                }
+                
             }
         }
 
