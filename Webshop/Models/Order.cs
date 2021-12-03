@@ -22,7 +22,9 @@ namespace Webshop.Models
         public int CustomerId { get; set; }
         
         public ShoppingCart ShoppingCart { get; set; }
-        
+        public int ShoppingCartId { get; set; }
+
+        public string ProductName { get; set; }
 
     }
 }

@@ -29,11 +29,14 @@ namespace Webshop.Methods
                 var order = new Order()
                 {
                     ShoppingCart = webshopDBContext.ShoppingCarts.Where(s => s.IsActive == true).FirstOrDefault(),
+                    ShoppingCartId = webshopDBContext.ShoppingCarts.Where(s => s.IsActive == true).FirstOrDefault().ShoppingCartId,
                     Customer = webshopDBContext.Customers
                     .Where(c => c.IsLoggedin == true).FirstOrDefault(),
                     CustomerId = webshopDBContext.Customers
                     .Where(c => c.IsLoggedin == true).FirstOrDefault().Id,
-                    TotalPrice = webshopDBContext.ShoppingCarts.Where(s => s.IsActive == true).FirstOrDefault().TotalPrice
+                    TotalPrice = webshopDBContext.ShoppingCarts.Where(s => s.IsActive == true).FirstOrDefault().TotalPrice,
+                    Quantity = webshopDBContext.ShoppingCarts.Where(s => s.IsActive == true).FirstOrDefault().OrderProducts.Count
+
                 };
                 webshopDBContext.Orders.Add(order);
                 webshopDBContext.SaveChanges();
@@ -41,8 +44,36 @@ namespace Webshop.Methods
                 var updatedOP = webshopDBContext.ShoppingCarts.Where(o => o.IsActive == true).FirstOrDefault().IsActive = false;
                 webshopDBContext.SaveChanges(updatedOP);
 
+                //var query = webshopDBContext.Products
+                //    .GroupJoin(
+                //        webshopDBContext.Orders,
+                //        product => product.ProductName,
+                //        orders => orders.OrderId,
+                //        (product, orders) => new
+                //        {
+                //            OrderId = orders.Select(orders => orders.OrderId),
+                //            ProductName = product.ProductName
+
+                //        }
+
+
+                //    ).ToList();
+
+                var query = webshopDBContext.Orders
+                    .Include(orders => orders.ShoppingCart)
+                    .ThenInclude(shoppingCart => shoppingCart.OrderProducts)
+                    .ThenInclude(orderProducts => orderProducts.Products)
+                    .ThenInclude(products => products.Category)
+                    .ThenInclude(category => category.CategoryName)                    
+                    .ToList();
+
                 Console.WriteLine("Order was created!");
-                Console.WriteLine($"OrderId: {order.OrderId} \n Total Price: {order.TotalPrice} \n Customer: {order.CustomerId}");
+
+                foreach (var item in query)
+                {
+                    Console.WriteLine($"OrderId: {0}, Product Name: {1}, Total: {2}",
+                        item.OrderId, item.ProductName, item.TotalPrice);
+                }
 
                 Console.WriteLine("\n Press any key to continue");
                 Console.ReadKey();

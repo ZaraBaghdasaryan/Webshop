@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using webshop.models;
 using Webshop.Models;
 
@@ -25,13 +23,8 @@ namespace Webshop.Methods
 
                 Menu menu = new Menu();
 
-                Console.WriteLine("Which product do you want?");
-                int choice = Convert.ToInt32(Console.ReadLine());
-
-                
-
-                Console.WriteLine("How many do you want?");
-                int quantitychosen = Convert.ToInt32(Console.ReadLine());
+                int choice = GetChosenProduct();
+                int quantitychosen = GetChosenQuantity();
 
                 webshopDBContext.Products.Find(choice).Availability -= quantitychosen;
 
@@ -41,7 +34,7 @@ namespace Webshop.Methods
                         Products = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault(),
                         ProductId = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault().ProductId,
                         Quantity = quantitychosen,
-                        OrderProductsPrice = webshopDBContext.Products.Find(choice).Price,
+                        OrderProductsPrice = webshopDBContext.Products.Find(choice).Price * quantitychosen,
                         IsActive = true
                 };
 
@@ -57,6 +50,24 @@ namespace Webshop.Methods
                 Console.ReadKey();
                 menu.DisplaMainMenu();
             }
+        }
+
+        public int GetChosenProduct()
+        {
+
+            Console.WriteLine("Which product do you want?");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            return choice;
+        }
+
+        public int GetChosenQuantity()
+        {
+            Console.WriteLine("How many do you want?");
+            int quantitychosen = Convert.ToInt32(Console.ReadLine());
+
+            return quantitychosen;
+              
         }
 
 

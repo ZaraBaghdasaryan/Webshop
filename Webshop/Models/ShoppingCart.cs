@@ -8,10 +8,14 @@ namespace Webshop.Models
     {
         public int ShoppingCartId { get; set; }
         public ICollection<OrderProducts> OrderProducts { get; set; }
+        public int OrderProductId { get; set; }
         public bool IsActive { get; set; }
         public int TotalPrice { get; set; }
 
         public Order Order { get; set; }
+
+
+
 
     }
 }
