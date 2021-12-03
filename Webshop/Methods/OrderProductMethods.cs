@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using webshop.models;
 using Webshop.Models;
 
 namespace Webshop.Methods
@@ -15,6 +16,9 @@ namespace Webshop.Methods
 
             using(WebshopDBContext webshopDBContext = new WebshopDBContext())
             {
+                ShoppingCartMethods shoppingCartMethods = new ShoppingCartMethods();
+
+
                 webshopDBContext.Products.Load();
                 webshopDBContext.OrderProducts.Load();
                 webshopDBContext.Orders.Load();
@@ -43,6 +47,9 @@ namespace Webshop.Methods
 
                 webshopDBContext.OrderProducts.Add(newOrderProduct);
                 webshopDBContext.SaveChanges();
+
+
+                shoppingCartMethods.CreateShoppingCart();
 
                 Console.WriteLine("OrderProduct has been created. Do you want to continue shopping?");
                 Console.WriteLine($"Product: {newOrderProduct.ProductId} \nQuantity: {newOrderProduct.Quantity}");

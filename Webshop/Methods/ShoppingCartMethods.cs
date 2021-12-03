@@ -1,15 +1,134 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using webshop;
 using webshop.models;
 using Webshop;
+using Webshop.Methods;
 using Webshop.Models;
 
 namespace webshop.models
 {
     public class ShoppingCartMethods
     {
+
+        public void CreateShoppingCart()
+        {
+            using(WebshopDBContext webshopDBContext = new WebshopDBContext())
+            {
+                webshopDBContext.Products.Load();
+                webshopDBContext.OrderProducts.Load();
+                webshopDBContext.Customers.Load();
+                webshopDBContext.Orders.Load();
+
+                OrderProductMethods orderProdctMethod = new OrderProductMethods();
+
+                Menu menu = new Menu();
+
+                var customer = new Customer();
+
+                var activeshoppingCart = webshopDBContext.ShoppingCarts.Where(o => o.IsActive == true).FirstOrDefault();
+
+
+
+                if(activeshoppingCart.IsActive == true)
+                {
+                    var productToAdd = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
+
+                    activeshoppingCart.OrderProducts.Add(productToAdd);
+
+                    webshopDBContext.ShoppingCarts.Add(activeshoppingCart);
+                    webshopDBContext.SaveChanges();
+
+                    var updatedOP = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().IsActive = false;
+                    webshopDBContext.SaveChanges(updatedOP);
+
+                    Console.WriteLine("Order was created!");
+                    Console.WriteLine($"CartId: {activeshoppingCart.ShoppingCartId} \n Total Price: {activeshoppingCart.TotalPrice} \n Customer: {activeshoppingCart.OrderProducts}");
+
+                    Console.WriteLine("\n Press any key to continue");
+                    Console.ReadKey();
+                    menu.GoBackToMain();
+
+                }
+                else
+                {
+                    var shoppingCart = new ShoppingCart()
+                    {
+                        OrderProducts = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).ToList(),
+                        TotalPrice = CalculateTotal(),
+                        IsActive = true
+                    };
+
+                    webshopDBContext.ShoppingCarts.Add(shoppingCart);
+                    webshopDBContext.SaveChanges();
+                    var updatedOP = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().IsActive = false;
+                    webshopDBContext.SaveChanges(updatedOP);
+
+                    Console.WriteLine("Order was created!");
+                    Console.WriteLine($"CartId: {shoppingCart.ShoppingCartId} \n Total Price: {shoppingCart.TotalPrice} \n Customer: {shoppingCart.OrderProducts}");
+
+                    Console.WriteLine("\n Press any key to continue");
+                    Console.ReadKey();
+                    menu.GoBackToMain();
+                }
+            }
+        }
+
+        public void AddOrderProductToCart(OrderProducts orderProducts)
+        {
+            using (WebshopDBContext webshopDBContext = new WebshopDBContext())
+            {
+                webshopDBContext.OrderProducts.Load();
+
+                var findProduct = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
+
+                
+
+
+                webshopDBContext.SaveChanges();
+            }
+        }
+
+        public int CalculateTotal()
+        {
+            using (WebshopDBContext webshopDBContext = new WebshopDBContext())
+            {
+                int totalPrice = 0;
+                webshopDBContext.Products.Load();
+                webshopDBContext.OrderProducts.Load();
+
+                var product = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
+
+                var pricePerLine = product.OrderProductsPrice;
+                var qty = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault().Quantity;
+
+                totalPrice = pricePerLine * qty;
+
+                return totalPrice;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //Menu menu = new Menu();
         //public List<Product> Cartlist = new List<Product>();
 

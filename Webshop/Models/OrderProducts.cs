@@ -12,7 +12,7 @@ namespace Webshop.Models
 
         public int OrderProductsPrice { get; set; }
 
-        public Order Orders { get; set; }
+        public ShoppingCart ShoppingCart { get; set; }
 
         public bool IsActive { get; set; }
 
