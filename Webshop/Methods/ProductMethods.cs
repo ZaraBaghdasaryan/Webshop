@@ -47,29 +47,20 @@ namespace Webshop.Methods
             {
                 webshopDBContext.Products.Find(1).Availability = 10;
                 webshopDBContext.Products.Find(2).Availability = 10;
-                //webshopDBContext.Products.Find(3).Availability = 10;
-                //webshopDBContext.Products.Find(4).Availability = 10;
-                //webshopDBContext.Products.Find(5).Availability = 10;
-                //webshopDBContext.Products.Find(6).Availability = 10;
-                //webshopDBContext.Products.Find(7).Availability = 10;
-                //webshopDBContext.Products.Find(8).Availability = 10;
-                //webshopDBContext.Products.Find(9).Availability = 10;
-                //webshopDBContext.Products.Find(10).Availability = 10;
-                //webshopDBContext.Products.Find(11).Availability = 10;
-                //webshopDBContext.Products.Find(12).Availability = 10;
-                //webshopDBContext.Products.Find(13).Availability = 10;
-                //webshopDBContext.Products.Find(14).Availability = 10;
-                //webshopDBContext.Products.Find(15).Availability = 10;
-                //webshopDBContext.Products.Find(16).Availability = 10;
-                //webshopDBContext.Products.Find(17).Availability = 10; 
-                //webshopDBContext.Products.Find(18).Availability = 10;
-                //webshopDBContext.Products.Find(19).Availability = 10;
-                //webshopDBContext.Products.Find(20).Availability = 10;
-                //webshopDBContext.Products.Find(21).Availability = 10;
-                //webshopDBContext.Products.Find(22).Availability = 10;
-                //webshopDBContext.Products.Find(23).Availability = 10;
-                //webshopDBContext.Products.Find(24).Availability = 10;
-                //webshopDBContext.Products.Find(25).Availability = 10;
+                webshopDBContext.Products.Find(3).Availability = 10;
+                webshopDBContext.Products.Find(4).Availability = 10;
+                webshopDBContext.Products.Find(5).Availability = 10;
+                webshopDBContext.Products.Find(6).Availability = 10;
+                webshopDBContext.Products.Find(7).Availability = 10;
+                webshopDBContext.Products.Find(8).Availability = 10;
+                webshopDBContext.Products.Find(9).Availability = 10;
+                webshopDBContext.Products.Find(10).Availability = 10;
+                webshopDBContext.Products.Find(11).Availability = 10;
+                webshopDBContext.Products.Find(12).Availability = 10;
+                webshopDBContext.Products.Find(13).Availability = 10;
+                webshopDBContext.Products.Find(14).Availability = 10;
+                webshopDBContext.Products.Find(15).Availability = 10;
+
 
                 webshopDBContext.SaveChanges();
 

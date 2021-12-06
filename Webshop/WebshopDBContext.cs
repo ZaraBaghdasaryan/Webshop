@@ -43,7 +43,7 @@ namespace Webshop
                 },
                   new Product
                   {
-                      ProductId = 1,
+                      ProductId = 2,
                       ProductName = "Space Suit Black",
                       Price = 699,
                       CategoryId = 1,
@@ -51,21 +51,21 @@ namespace Webshop
                   },
                     new Product
                     {
-                        ProductId = 1,
+                        ProductId = 3,
                         ProductName = "Space Suit Yellow",
                         Price = 699,
                         CategoryId = 1,
                         Availability = 10
                     }, new Product
                     {
-                        ProductId = 1,
+                        ProductId = 4,
                         ProductName = "Space Suit Blue",
                         Price = 699,
                         CategoryId = 1,
                         Availability = 10
                     }, new Product
                     {
-                        ProductId = 1,
+                        ProductId = 5,
                         ProductName = "Space Suit Dark Blue",
                         Price = 699,
                         CategoryId = 1,
@@ -73,7 +73,7 @@ namespace Webshop
                     },
                 new Product
                 {
-                    ProductId = 2,
+                    ProductId = 6,
                     ProductName = "Space Shuttle Black",
                     Price = 699,
                     CategoryId = 2,
@@ -81,7 +81,7 @@ namespace Webshop
                 },
                 new Product
                 {
-                    ProductId = 2,
+                    ProductId = 7,
                     ProductName = "Space Shuttle Blue",
                     Price = 699,
                     CategoryId = 2,
@@ -89,7 +89,7 @@ namespace Webshop
                 },
                 new Product
                 {
-                    ProductId = 2,
+                    ProductId = 8,
                     ProductName = "Space Shuttle Dark Blue",
                     Price = 699,
                     CategoryId = 2,
@@ -97,7 +97,7 @@ namespace Webshop
                 },
                 new Product
                 {
-                    ProductId = 2,
+                    ProductId = 9,
                     ProductName = "Space Shuttle Silver",
                     Price = 699,
                     CategoryId = 2,
@@ -105,7 +105,7 @@ namespace Webshop
                 },
                 new Product
                 {
-                    ProductId = 2,
+                    ProductId = 10,
                     ProductName = "Space Shuttle Red",
                     Price = 699,
                     CategoryId = 2,
@@ -113,7 +113,7 @@ namespace Webshop
                 },
                  new Product
                  {
-                     ProductId = 2,
+                     ProductId = 11,
                      ProductName = "Learn to be weightless",
                      Price = 699,
                      CategoryId = 3,
@@ -121,7 +121,7 @@ namespace Webshop
                  },
                   new Product
                   {
-                      ProductId = 2,
+                      ProductId = 12,
                       ProductName = "Free fall training",
                       Price = 699,
                       CategoryId = 3,
@@ -129,7 +129,7 @@ namespace Webshop
                   },
                    new Product
                    {
-                       ProductId = 2,
+                       ProductId = 13,
                        ProductName = "Moon walk training",
                        Price = 699,
                        CategoryId = 3,
@@ -137,7 +137,7 @@ namespace Webshop
                    },
                     new Product
                     {
-                        ProductId = 2,
+                        ProductId = 14,
                         ProductName = "Survival on Mars",
                         Price = 699,
                         CategoryId = 3,
@@ -145,7 +145,7 @@ namespace Webshop
                     },
                      new Product
                      {
-                         ProductId = 2,
+                         ProductId = 15,
                          ProductName = "Conquer your deepest fears of cosmos",
                          Price = 699,
                          CategoryId = 3,
