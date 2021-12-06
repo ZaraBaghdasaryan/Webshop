@@ -7,7 +7,8 @@ https://www.entityframeworktutorial.net/efcore/saving-data-in-connected-scenario
 https://entityframework.net/many-to-many-relationship 
 https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.include?view=efcore-5.0
 
+
 Github
-https://github.com/NBIGrupp5/BikeRental - earlier group project
-https://github.com/DonOllario/Projektarbete-E-Commerce - this was the one you said inspired webshop?
-https://github.com/ZaraBaghdasaryan/Bicycle-Rental-Console-Application - Zaras consoleapp also notified via discord
+https://github.com/NBIGrupp5/BikeRental
+https://github.com/DonOllario/Projektarbete-E-Commerce 
+https://github.com/ZaraBaghdasaryan/Bicycle-Rental-Console-Application 
