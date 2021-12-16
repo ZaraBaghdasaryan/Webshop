@@ -12,7 +12,7 @@ namespace Webshop.Methods
         public void CreateOrderProduct()
         {
 
-            using(WebshopDBContext webshopDBContext = new WebshopDBContext())
+            using (WebshopDBContext webshopDBContext = new WebshopDBContext())
             {
                 ShoppingCartMethods shoppingCartMethods = new ShoppingCartMethods();
 
@@ -23,32 +23,48 @@ namespace Webshop.Methods
 
                 Menu menu = new Menu();
 
-                int choice = GetChosenProduct(false);
-                int quantitychosen = GetChosenQuantity(false);
+                var orderProduct = webshopDBContext.ShoppingCarts.Where(o => o.IsActive == true).Count();
 
-                webshopDBContext.Products.Find(choice).Availability -= quantitychosen;
-
-
-                var newOrderProduct = new OrderProducts()
+                if (orderProduct.Equals(0))
                 {
+
+                    menu.DisplayProductsMenu();
+
+                    int choice = GetChosenProduct(false);
+                    int quantitychosen = GetChosenQuantity(false);
+
+                    webshopDBContext.Products.Find(choice).Availability -= quantitychosen;
+
+
+                    var newOrderProduct = new OrderProducts()
+                    {
                         Products = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault(),
                         ProductId = webshopDBContext.Products.Where(p => p.ProductId == choice).FirstOrDefault().ProductId,
                         Quantity = quantitychosen,
                         OrderProductsPrice = webshopDBContext.Products.Find(choice).Price * quantitychosen,
                         IsActive = true
-                };
+                    };
 
-                webshopDBContext.OrderProducts.Add(newOrderProduct);
-                webshopDBContext.SaveChanges();
+                    webshopDBContext.OrderProducts.Add(newOrderProduct);
+                    webshopDBContext.SaveChanges();
 
 
-                shoppingCartMethods.CreateShoppingCart();
+                    shoppingCartMethods.CreateShoppingCart();
 
-                Console.WriteLine("OrderProduct has been created. Do you want to continue shopping?");
-                Console.WriteLine($"Product: {newOrderProduct.ProductId} \nQuantity: {newOrderProduct.Quantity}");
-                Console.WriteLine("Press any key to go back to main menu.");
-                Console.ReadKey();
-                menu.DisplaMainMenu();
+                    Console.WriteLine("OrderProduct has been created. Do you want to continue shopping?");
+                    Console.WriteLine($"Product: {newOrderProduct.ProductId} \nQuantity: {newOrderProduct.Quantity}");
+                    Console.WriteLine("Press any key to go back to main menu.");
+                    Console.ReadKey();
+                    menu.DisplaMainMenu();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("You already have an item in you cart. Please checkout before you add another...");
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
+                    menu.DisplaMainMenu();
+                }
             }
         }
 

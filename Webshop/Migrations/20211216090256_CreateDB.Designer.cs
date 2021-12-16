@@ -10,7 +10,7 @@ using Webshop;
 namespace Webshop.Migrations
 {
     [DbContext(typeof(WebshopDBContext))]
-    [Migration("20211203112854_CreateDB")]
+    [Migration("20211216090256_CreateDB")]
     partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,11 @@ namespace Webshop.Migrations
                         {
                             CategoryId = 2,
                             CategoryName = "Space Vehicles"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Astronaut Training"
                         });
                 });
 
@@ -93,7 +98,7 @@ namespace Webshop.Migrations
                             Address = "Vägen 11, 447 74 Vägen",
                             Email = "annabanan@gmail.com",
                             FirstName = "Anna",
-                            IsLoggedin = true,
+                            IsLoggedin = false,
                             LastName = "Johnson",
                             Password = "1234"
                         });
@@ -191,15 +196,119 @@ namespace Webshop.Migrations
                             Availability = 10,
                             CategoryId = 1,
                             Price = 699,
-                            ProductName = "Space Suit 1"
+                            ProductName = "Space Suit Purple"
                         },
                         new
                         {
                             ProductId = 2,
                             Availability = 10,
+                            CategoryId = 1,
+                            Price = 699,
+                            ProductName = "Space Suit Black"
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            Availability = 10,
+                            CategoryId = 1,
+                            Price = 699,
+                            ProductName = "Space Suit Yellow"
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            Availability = 10,
+                            CategoryId = 1,
+                            Price = 699,
+                            ProductName = "Space Suit Blue"
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            Availability = 10,
+                            CategoryId = 1,
+                            Price = 699,
+                            ProductName = "Space Suit Dark Blue"
+                        },
+                        new
+                        {
+                            ProductId = 6,
+                            Availability = 10,
                             CategoryId = 2,
                             Price = 699,
-                            ProductName = "Space Shuttle"
+                            ProductName = "Space Shuttle Black"
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            Availability = 10,
+                            CategoryId = 2,
+                            Price = 699,
+                            ProductName = "Space Shuttle Blue"
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            Availability = 10,
+                            CategoryId = 2,
+                            Price = 699,
+                            ProductName = "Space Shuttle Dark Blue"
+                        },
+                        new
+                        {
+                            ProductId = 9,
+                            Availability = 10,
+                            CategoryId = 2,
+                            Price = 699,
+                            ProductName = "Space Shuttle Silver"
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            Availability = 10,
+                            CategoryId = 2,
+                            Price = 699,
+                            ProductName = "Space Shuttle Red"
+                        },
+                        new
+                        {
+                            ProductId = 11,
+                            Availability = 10,
+                            CategoryId = 3,
+                            Price = 699,
+                            ProductName = "Learn to be weightless"
+                        },
+                        new
+                        {
+                            ProductId = 12,
+                            Availability = 10,
+                            CategoryId = 3,
+                            Price = 699,
+                            ProductName = "Free fall training"
+                        },
+                        new
+                        {
+                            ProductId = 13,
+                            Availability = 10,
+                            CategoryId = 3,
+                            Price = 699,
+                            ProductName = "Moon walk training"
+                        },
+                        new
+                        {
+                            ProductId = 14,
+                            Availability = 10,
+                            CategoryId = 3,
+                            Price = 699,
+                            ProductName = "Survival on Mars"
+                        },
+                        new
+                        {
+                            ProductId = 15,
+                            Availability = 10,
+                            CategoryId = 3,
+                            Price = 699,
+                            ProductName = "Conquer your deepest fears of cosmos"
                         });
                 });
 
