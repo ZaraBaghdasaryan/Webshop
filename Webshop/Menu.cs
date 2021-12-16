@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using webshop.models;
 using Webshop.Methods;
 using Webshop.Models;
 
@@ -12,7 +13,10 @@ namespace Webshop
         public void DisplaMainMenu()
         {
             CustomerMethods customerMethods = new CustomerMethods();
+            ShoppingCartMethods shoppingCartMethods = new ShoppingCartMethods();
             OrderMethods order = new OrderMethods();
+            OrderProductMethods orderProductMethods = new OrderProductMethods();
+
             Console.Clear();
             Console.WriteLine("Here are your options:");
             Console.WriteLine("1. Browse products");
@@ -24,7 +28,7 @@ namespace Webshop
             switch(choice)
             {
                 case "1":
-                    DisplayProductsMenu();
+                    orderProductMethods.CreateOrderProduct();
                     break;
                 case "2":
                     order.CreateNewOrder();
@@ -75,13 +79,13 @@ namespace Webshop
             OrderMethods order = new OrderMethods();
             OrderProductMethods orderProduct = new OrderProductMethods();
             product.GetAllProducts(false);
-            orderProduct.CreateOrderProduct();
         }
 
         public void GoBackToMain()
         {
             ProductMethods product = new ProductMethods();
 
+            Console.Clear();
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1. Go back");
             Console.WriteLine("2. Exit Program");

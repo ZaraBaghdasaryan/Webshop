@@ -11,7 +11,6 @@ namespace Webshop.Methods
 
         public IEnumerable<Product> GetAllProducts( bool testing)
         {
-            Menu menu = new Menu();
             CategoryMethods category = new CategoryMethods();
             WebshopDBContext _context = new WebshopDBContext();
             var productsFromDB = _context.Products.ToList();

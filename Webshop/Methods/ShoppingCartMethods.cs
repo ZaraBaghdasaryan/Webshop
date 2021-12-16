@@ -26,9 +26,7 @@ namespace webshop.models
 
                 Menu menu = new Menu();
 
-                var customer = new Customer();
-
-                var activeshoppingCart = webshopDBContext.ShoppingCarts.Where(o => o.IsActive == true).FirstOrDefault();
+                    var activeshoppingCart = webshopDBContext.ShoppingCarts.Where(o => o.IsActive == true).FirstOrDefault();
 
                     var shoppingCart = new ShoppingCart()
                     {
@@ -49,7 +47,34 @@ namespace webshop.models
                     Console.WriteLine("\n Press any key to continue");
                     Console.ReadKey();
                     menu.GoBackToMain();
-                
+     
+            }
+        }
+
+
+        public void PrintItemsInCart()
+        {
+            using (WebshopDBContext webshopDBContext = new WebshopDBContext())
+            {
+                Menu menu = new Menu();
+                var activeshoppingCart = webshopDBContext.ShoppingCarts.Where(o => o.IsActive == true).FirstOrDefault();
+                if (activeshoppingCart != null)
+                {
+                    var orderProduct = webshopDBContext.OrderProducts.Where(o => o.IsActive == true).FirstOrDefault();
+                        Console.WriteLine($"Total: {activeshoppingCart.TotalPrice} \n Product: {orderProduct.OrderProductId}");
+                        Console.WriteLine("Press any key to go back to the main menu");
+                        Console.ReadKey();
+                        menu.DisplaMainMenu();
+                   
+                }
+                else
+                {
+
+                    Console.WriteLine($"Shoppingcart is empty");
+                    Console.ReadKey();
+                    menu.DisplaMainMenu();
+
+                }
             }
         }
 

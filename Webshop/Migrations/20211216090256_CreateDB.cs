@@ -134,27 +134,39 @@ namespace Webshop.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "CategoryId", "CategoryName" },
-                values: new object[] { 1, "Space Suits" });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "CategoryId", "CategoryName" },
-                values: new object[] { 2, "Space Vehicles" });
+                values: new object[,]
+                {
+                    { 1, "Space Suits" },
+                    { 2, "Space Vehicles" },
+                    { 3, "Astronaut Training" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Id", "Address", "Email", "FirstName", "IsLoggedin", "LastName", "Password" },
-                values: new object[] { 1, "Vägen 11, 447 74 Vägen", "annabanan@gmail.com", "Anna", true, "Johnson", "1234" });
+                values: new object[] { 1, "Vägen 11, 447 74 Vägen", "annabanan@gmail.com", "Anna", false, "Johnson", "1234" });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ProductId", "Availability", "CategoryId", "Price", "ProductName" },
-                values: new object[] { 1, 10, 1, 699, "Space Suit 1" });
-
-            migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "ProductId", "Availability", "CategoryId", "Price", "ProductName" },
-                values: new object[] { 2, 10, 2, 699, "Space Shuttle" });
+                values: new object[,]
+                {
+                    { 1, 10, 1, 699, "Space Suit Purple" },
+                    { 2, 10, 1, 699, "Space Suit Black" },
+                    { 3, 10, 1, 699, "Space Suit Yellow" },
+                    { 4, 10, 1, 699, "Space Suit Blue" },
+                    { 5, 10, 1, 699, "Space Suit Dark Blue" },
+                    { 6, 10, 2, 699, "Space Shuttle Black" },
+                    { 7, 10, 2, 699, "Space Shuttle Blue" },
+                    { 8, 10, 2, 699, "Space Shuttle Dark Blue" },
+                    { 9, 10, 2, 699, "Space Shuttle Silver" },
+                    { 10, 10, 2, 699, "Space Shuttle Red" },
+                    { 11, 10, 3, 699, "Learn to be weightless" },
+                    { 12, 10, 3, 699, "Free fall training" },
+                    { 13, 10, 3, 699, "Moon walk training" },
+                    { 14, 10, 3, 699, "Survival on Mars" },
+                    { 15, 10, 3, 699, "Conquer your deepest fears of cosmos" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderProducts_ProductId",
