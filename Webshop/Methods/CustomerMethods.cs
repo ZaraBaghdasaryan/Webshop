@@ -81,11 +81,14 @@ namespace BicycleRental.Methods
         {
             using (WebshopDBContext webshopDBContext = new WebshopDBContext())
             {
+
+                
+
                 Console.WriteLine("Write >back< if you want to go back");
                 Menu menu = new Menu();
 
                 Console.WriteLine("Please, enter your Email.");
-                string Email = Console.ReadLine().ToLower();
+                string Email = Console.ReadLine().ToLower().Trim();
 
                 if (Email == "back")
                 {
@@ -93,38 +96,49 @@ namespace BicycleRental.Methods
                 }
 
                 Console.WriteLine("Please, enter your password");
-                string Password = Console.ReadLine().ToLower();
+                string Password = Console.ReadLine().ToLower().Trim();
 
                 if(Password == "back")
                 {
                     menu.DisplayLoginSignUpMenu();
                 }
 
-                string lookForEmail = webshopDBContext.Customers
-                    .Where(c => c.Email == Email).FirstOrDefault().Email;
-                string lookForPassword = webshopDBContext.Customers
-                    .Where(c => c.Password == Password).FirstOrDefault().Password;
-
-                if (lookForEmail.Equals(Email) && lookForPassword.Equals(Password))
+                var usersFromDb = webshopDBContext.Customers.Where(c => c.Email == Email && c.Password == Password).FirstOrDefault();
+                if (usersFromDb == null)
                 {
-
-                    var customer = webshopDBContext.Customers
-                        .Where(c => c.Email == Email)
-                        .FirstOrDefault();
-
-                    customer.IsLoggedin = true;
-
-
-                    Console.WriteLine($"Welcome {customer.FirstName}, you are now logged in!");
-                    webshopDBContext.Customers.Update(customer);
-                    webshopDBContext.SaveChanges();
+                    Console.WriteLine("No user matching those credentials were found. Please try again");
                     Console.ReadKey();
-                    menu.DisplayLoginSignUpMenu();
+                    Console.Clear();
+                    LogIn();
                 }
                 else
                 {
-                    Console.WriteLine("No user matching those credentials were found. Please try again");
-                    LogIn();
+
+
+                    string lookForEmail = usersFromDb.Email;
+                    string lookForPassword = usersFromDb.Password;
+
+                    if (lookForEmail.Equals(Email) && lookForPassword.Equals(Password))
+                    {
+
+                        var customer = webshopDBContext.Customers
+                            .Where(c => c.Email == Email)
+                            .FirstOrDefault();
+
+                        customer.IsLoggedin = true;
+
+
+                        Console.WriteLine($"Welcome {customer.FirstName}, you are now logged in!");
+                        webshopDBContext.Customers.Update(customer);
+                        webshopDBContext.SaveChanges();
+                        Console.ReadKey();
+                        menu.DisplayLoginSignUpMenu();
+                    }
+                    else
+                    {
+                        Console.WriteLine("No user matching those credentials were found. Please try again");
+                        LogIn();
+                    }
                 }
 
             }
@@ -142,7 +156,7 @@ namespace BicycleRental.Methods
 
                 var customer = webshopDBContext.Customers.Where(c => c.IsLoggedin == true).FirstOrDefault().IsLoggedin = false;
                 webshopDBContext.SaveChanges(customer);
-                Console.ReadKey();
+                
                 Console.WriteLine("Now you have logged out. Press any key to go back to the login menu");
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
