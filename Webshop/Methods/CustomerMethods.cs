@@ -142,8 +142,10 @@ namespace BicycleRental.Methods
 
                 var customer = webshopDBContext.Customers.Where(c => c.IsLoggedin == true).FirstOrDefault().IsLoggedin = false;
                 webshopDBContext.SaveChanges(customer);
-
+                Console.ReadKey();
                 Console.WriteLine("Now you have logged out. Press any key to go back to the login menu");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
                 menu.DisplayLoginSignUpMenu();
             }
         }

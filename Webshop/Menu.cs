@@ -21,7 +21,7 @@ namespace Webshop
             Console.WriteLine("Here are your options:");
             Console.WriteLine("1. Browse products");
             Console.WriteLine("2. Checkout");
-            Console.WriteLine("4. Sign in / Login");
+            Console.WriteLine("3. Sign in / Login");
 
             string choice = Console.ReadLine().Substring(0);
 
