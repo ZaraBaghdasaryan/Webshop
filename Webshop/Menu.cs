@@ -33,7 +33,7 @@ namespace Webshop
                 case "2":
                     order.CreateNewOrder();
                     break;
-                case "4":
+                case "3":
                     DisplayLoginSignUpMenu();
                     break;
 
